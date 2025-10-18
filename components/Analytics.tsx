@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import Script from 'next/script';
+import { useEffect } from "react";
+import Script from "next/script";
 
 export function Analytics() {
   const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
@@ -9,11 +9,11 @@ export function Analytics() {
 
   useEffect(() => {
     // Инициализация Яндекс.Метрики после загрузки (если ID указан)
-    if (yandexMetrikaId && typeof window !== 'undefined') {
+    if (yandexMetrikaId && typeof window !== "undefined") {
       setTimeout(() => {
         // @ts-ignore
         if (window.ym) {
-          console.log('Яндекс.Метрика initialized');
+          console.log("Яндекс.Метрика initialized");
         }
       }, 2000);
     }
@@ -48,7 +48,7 @@ export function Analytics() {
             <div>
               <img
                 src={`https://mc.yandex.ru/watch/${yandexMetrikaId}`}
-                style={{ position: 'absolute', left: '-9999px' }}
+                style={{ position: "absolute", left: "-9999px" }}
                 alt=""
               />
             </div>
@@ -79,16 +79,17 @@ export function Analytics() {
       )}
 
       {/* Mock: Если переменные окружения не заданы, показываем предупреждение в dev режиме */}
-      {process.env.NODE_ENV === 'development' && !yandexMetrikaId && !googleAnalyticsId && (
-        <Script
-          id="analytics-mock"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `console.log('%c⚠️ Analytics Mock Mode', 'color: orange; font-size: 14px; font-weight: bold;', '\\nДобавьте NEXT_PUBLIC_YANDEX_METRIKA_ID и NEXT_PUBLIC_GOOGLE_ANALYTICS_ID в .env файл');`,
-          }}
-        />
-      )}
+      {process.env.NODE_ENV === "development" &&
+        !yandexMetrikaId &&
+        !googleAnalyticsId && (
+          <Script
+            id="analytics-mock"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `console.log('%c⚠️ Analytics Mock Mode', 'color: orange; font-size: 14px; font-weight: bold;', '\\nДобавьте NEXT_PUBLIC_YANDEX_METRIKA_ID и NEXT_PUBLIC_GOOGLE_ANALYTICS_ID в .env файл');`,
+            }}
+          />
+        )}
     </>
   );
 }
-

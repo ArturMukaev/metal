@@ -1,44 +1,50 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { Analytics } from '@/components/Analytics';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { Analytics } from "@/components/Analytics";
 
-const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' });
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
   title: {
-    default: 'Металлообработка и изготовление металлических изделий | СТИЛКРАФТ',
-    template: '%s | СТИЛКРАФТ',
+    default:
+      "Металлообработка и изготовление металлических изделий | СТИЛКРАФТ",
+    template: "%s | СТИЛКРАФТ",
   },
   description:
-    'Профессиональная металлообработка в Перми. Токарные, фрезерные, зуборезные работы. Изготовление деталей по чертежам. Компания СТИЛКРАФТ - создавая надежность.',
+    "Профессиональная металлообработка в Перми. Токарные, фрезерные, зуборезные работы. Изготовление деталей по чертежам. Компания СТИЛКРАФТ - создавая надежность.",
   keywords: [
-    'металлообработка',
-    'токарные работы',
-    'фрезерные работы',
-    'изготовление деталей',
-    'шестерни на заказ',
-    'Пермь',
-    'СТИЛКРАФТ',
+    "металлообработка",
+    "токарные работы",
+    "фрезерные работы",
+    "изготовление деталей",
+    "шестерни на заказ",
+    "Пермь",
+    "СТИЛКРАФТ",
   ],
-  authors: [{ name: 'СТИЛКРАФТ' }],
+  authors: [{ name: "СТИЛКРАФТ" }],
   openGraph: {
-    type: 'website',
-    locale: 'ru_RU',
+    type: "website",
+    locale: "ru_RU",
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    siteName: 'СТИЛКРАФТ',
-    title: 'Металлообработка и изготовление металлических изделий | СТИЛКРАФТ',
+    siteName: "СТИЛКРАФТ",
+    title: "Металлообработка и изготовление металлических изделий | СТИЛКРАФТ",
     description:
-      'Профессиональная металлообработка в Перми. Токарные, фрезерные, зуборезные работы.',
+      "Профессиональная металлообработка в Перми. Токарные, фрезерные, зуборезные работы.",
     images: [
       {
-        url: '/logo.png',
+        url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: 'СТИЛКРАФТ - Металлообработка',
+        alt: "СТИЛКРАФТ - Металлообработка",
       },
     ],
   },
@@ -48,9 +54,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   verification: {
@@ -76,4 +82,3 @@ export default function RootLayout({
     </html>
   );
 }
-

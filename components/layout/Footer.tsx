@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { companyInfo } from '@/lib/data/company';
-import { Mail, Phone, MapPin } from 'lucide-react';
-import servicesData from '@/lib/data/services.json';
+import Link from "next/link";
+import { companyInfo } from "@/lib/data/company";
+import { Mail, Phone, MapPin } from "lucide-react";
+import servicesData from "@/lib/data/services.json";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -31,10 +31,10 @@ export function Footer() {
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
                 <div className="flex flex-col gap-1">
-                  {companyInfo.phones.map((phone) => (
+                  {companyInfo.phones.map(phone => (
                     <a
                       key={phone}
-                      href={`tel:${phone.replace(/\D/g, '')}`}
+                      href={`tel:${phone.replace(/\D/g, "")}`}
                       className="hover:text-primary transition-colors"
                     >
                       {phone}
@@ -59,7 +59,7 @@ export function Footer() {
           <div>
             <h3 className="text-white font-bold text-lg mb-4">Услуги</h3>
             <ul className="space-y-2">
-              {featuredServices.map((service) => (
+              {featuredServices.map(service => (
                 <li key={service.id}>
                   <Link
                     href={`/services/${service.slug}`}
@@ -82,22 +82,34 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="hover:text-primary transition-colors">
+                <Link
+                  href="/gallery"
+                  className="hover:text-primary transition-colors"
+                >
                   Наши работы
                 </Link>
               </li>
               <li>
-                <Link href="/articles" className="hover:text-primary transition-colors">
+                <Link
+                  href="/articles"
+                  className="hover:text-primary transition-colors"
+                >
                   Статьи
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-primary transition-colors">
+                <Link
+                  href="/services"
+                  className="hover:text-primary transition-colors"
+                >
                   Услуги
                 </Link>
               </li>
               <li>
-                <Link href="/kontakty" className="hover:text-primary transition-colors">
+                <Link
+                  href="/kontakty"
+                  className="hover:text-primary transition-colors"
+                >
                   Контакты
                 </Link>
               </li>
@@ -122,4 +134,3 @@ export function Footer() {
     </footer>
   );
 }
-

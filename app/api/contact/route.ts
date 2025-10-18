@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { prisma } from '@/lib/utils/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { prisma } from "@/lib/utils/prisma";
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
+  name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
   phone: z.string().optional(),
-  email: z.string().email('Некорректный email').optional().or(z.literal('')),
-  message: z.string().min(10, 'Сообщение должно содержать минимум 10 символов'),
-  source: z.enum(['website', 'callback']).default('website'),
+  email: z.string().email("Некорректный email").optional().or(z.literal("")),
+  message: z.string().min(10, "Сообщение должно содержать минимум 10 символов"),
+  source: z.enum(["website", "callback"]).default("website"),
 });
 
 export async function POST(request: NextRequest) {
@@ -23,8 +23,9 @@ export async function POST(request: NextRequest) {
         email: data.email,
         message: data.message,
         source: data.source,
-        ipAddress: request.headers.get('x-forwarded-for') || request.ip || 'unknown',
-        userAgent: request.headers.get('user-agent') || 'unknown',
+        ipAddress:
+          request.headers.get("x-forwarded-for") || request.ip || "unknown",
+        userAgent: request.headers.get("user-agent") || "unknown",
       },
     });
 
@@ -43,26 +44,30 @@ export async function POST(request: NextRequest) {
         });
       }
     } catch (telegramError) {
-      console.error('Telegram send error:', telegramError);
+      console.error("Telegram send error:", telegramError);
       // Не возвращаем ошибку пользователю, заявка сохранена в БД
     }
 
     return NextResponse.json(
-      { success: true, message: 'Заявка успешно отправлена' },
+      { success: true, message: "Заявка успешно отправлена" },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error("Contact form error:", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { success: false, message: 'Ошибка валидации данных', errors: error.errors },
+        {
+          success: false,
+          message: "Ошибка валидации данных",
+          errors: error.errors,
+        },
         { status: 400 }
       );
     }
 
     return NextResponse.json(
-      { success: false, message: 'Произошла ошибка при отправке заявки' },
+      { success: false, message: "Произошла ошибка при отправке заявки" },
       { status: 500 }
     );
   }
@@ -70,8 +75,8 @@ export async function POST(request: NextRequest) {
 
 function formatTelegramMessage(data: z.infer<typeof contactSchema>) {
   const parts = [
-    '🔔 <b>Новая заявка с сайта!</b>',
-    '',
+    "🔔 <b>Новая заявка с сайта!</b>",
+    "",
     `👤 <b>Имя:</b> ${data.name}`,
   ];
 
@@ -83,10 +88,10 @@ function formatTelegramMessage(data: z.infer<typeof contactSchema>) {
     parts.push(`📧 <b>Email:</b> ${data.email}`);
   }
 
-  parts.push('', `💬 <b>Сообщение:</b>`, data.message);
-  parts.push('', `🕐 ${new Date().toLocaleString('ru-RU')}`);
+  parts.push("", `💬 <b>Сообщение:</b>`, data.message);
+  parts.push("", `🕐 ${new Date().toLocaleString("ru-RU")}`);
 
-  return parts.join('\n');
+  return parts.join("\n");
 }
 
 async function sendToTelegram(message: string) {
@@ -94,19 +99,19 @@ async function sendToTelegram(message: string) {
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!botToken || !chatId) {
-    console.warn('Telegram credentials not configured');
+    console.warn("Telegram credentials not configured");
     return null;
   }
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
   const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: chatId,
       text: message,
-      parse_mode: 'HTML',
+      parse_mode: "HTML",
     }),
   });
 
@@ -117,4 +122,3 @@ async function sendToTelegram(message: string) {
   const result = await response.json();
   return result.result;
 }
-

@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import { companyInfo } from '@/lib/data/company';
-import { CheckCircle } from 'lucide-react';
+import Image from "next/image";
+import { companyInfo } from "@/lib/data/company";
+import { CheckCircle } from "lucide-react";
 
 export function Hero() {
   return (
@@ -24,7 +24,7 @@ export function Hero() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in">
             Металлообработка и изготовление металлических изделий
           </h1>
-          
+
           <div className="space-y-3 mb-8 animate-slide-up">
             {companyInfo.heroFeatures.map((feature, index) => (
               <div key={index} className="flex items-start gap-3">
@@ -45,4 +45,3 @@ export function Hero() {
     </section>
   );
 }
-

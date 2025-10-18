@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import type { Service } from '@/lib/types';
+import Image from "next/image";
+import Link from "next/link";
+import type { Service } from "@/lib/types";
 
 interface ServiceCardProps {
   service: Service;
@@ -25,9 +25,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
           {service.title}
         </h3>
-        <p className="text-gray-600 text-sm line-clamp-2">{service.shortDescription}</p>
+        <p className="text-gray-600 text-sm line-clamp-2">
+          {service.shortDescription}
+        </p>
       </div>
     </Link>
   );
 }
-

@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ContactForm } from '@/components/ContactForm';
-import { ServiceCard } from '@/components/ServiceCard';
-import servicesData from '@/lib/data/services.json';
-import type { Service } from '@/lib/types';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { ContactForm } from "@/components/ContactForm";
+import { ServiceCard } from "@/components/ServiceCard";
+import servicesData from "@/lib/data/services.json";
+import type { Service } from "@/lib/types";
 
 interface ServicePageProps {
   params: {
@@ -14,17 +14,19 @@ interface ServicePageProps {
 }
 
 export async function generateStaticParams() {
-  return servicesData.map((service) => ({
+  return servicesData.map(service => ({
     slug: service.slug,
   }));
 }
 
-export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
-  const service = servicesData.find((s) => s.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: ServicePageProps): Promise<Metadata> {
+  const service = servicesData.find(s => s.slug === params.slug);
 
   if (!service) {
     return {
-      title: 'Услуга не найдена',
+      title: "Услуга не найдена",
     };
   }
 
@@ -40,14 +42,16 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = servicesData.find((s) => s.slug === params.slug);
+  const service = servicesData.find(s => s.slug === params.slug);
 
   if (!service) {
     notFound();
   }
 
   // Другие услуги для рекомендаций
-  const otherServices = servicesData.filter((s) => s.id !== service.id).slice(0, 4);
+  const otherServices = servicesData
+    .filter(s => s.id !== service.id)
+    .slice(0, 4);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -59,7 +63,10 @@ export default function ServicePage({ params }: ServicePageProps) {
               Главная
             </Link>
             <span>/</span>
-            <Link href="/services" className="hover:text-primary transition-colors">
+            <Link
+              href="/services"
+              className="hover:text-primary transition-colors"
+            >
               Услуги
             </Link>
             <span>/</span>
@@ -71,7 +78,12 @@ export default function ServicePage({ params }: ServicePageProps) {
       {/* Hero Section */}
       <section className="relative h-[300px] md:h-[400px] flex items-center">
         <div className="absolute inset-0">
-          <Image src={service.image} alt={service.title} fill className="object-cover" />
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/70 to-dark/50" />
         </div>
         <div className="container-custom relative z-10">
@@ -92,15 +104,19 @@ export default function ServicePage({ params }: ServicePageProps) {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-gray-700 leading-relaxed">{service.description}</p>
-              
+              <p className="text-xl text-gray-700 leading-relaxed">
+                {service.description}
+              </p>
+
               <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">
                 О услуге {service.title}
               </h2>
               <p className="text-gray-700">
-                Компания СТИЛКРАФТ предлагает профессиональные услуги по {service.title.toLowerCase()}.
-                Мы используем современное оборудование и технологии, что позволяет нам гарантировать
-                высокое качество выполнения работ и точное соблюдение всех технических требований.
+                Компания СТИЛКРАФТ предлагает профессиональные услуги по{" "}
+                {service.title.toLowerCase()}. Мы используем современное
+                оборудование и технологии, что позволяет нам гарантировать
+                высокое качество выполнения работ и точное соблюдение всех
+                технических требований.
               </p>
 
               <h3 className="text-2xl font-bold text-gray-900 mt-6 mb-3">
@@ -116,8 +132,9 @@ export default function ServicePage({ params }: ServicePageProps) {
               </ul>
 
               <p className="text-gray-700 mt-6">
-                Стоимость работ определяется индивидуально под каждый заказ. Для получения
-                подробной информации и расчета стоимости свяжитесь с нашими специалистами.
+                Стоимость работ определяется индивидуально под каждый заказ. Для
+                получения подробной информации и расчета стоимости свяжитесь с
+                нашими специалистами.
               </p>
             </div>
           </div>
@@ -128,9 +145,11 @@ export default function ServicePage({ params }: ServicePageProps) {
       {otherServices.length > 0 && (
         <section className="section-padding bg-gray-50">
           <div className="container-custom">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Другие услуги</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+              Другие услуги
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {otherServices.map((s) => (
+              {otherServices.map(s => (
                 <ServiceCard key={s.id} service={s} />
               ))}
             </div>
@@ -165,7 +184,8 @@ export default function ServicePage({ params }: ServicePageProps) {
                 Напишите нам, мы ответим на все ваши вопросы
               </h2>
               <p className="text-gray-600 mb-6">
-                Заполните форму, и менеджер свяжется с вами для обсуждения деталей
+                Заполните форму, и менеджер свяжется с вами для обсуждения
+                деталей
               </p>
               <ContactForm />
             </div>
@@ -175,4 +195,3 @@ export default function ServicePage({ params }: ServicePageProps) {
     </div>
   );
 }
-

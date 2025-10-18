@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/utils/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/utils/prisma";
 
 // Типы Telegram
 interface TelegramUpdate {
@@ -30,7 +30,11 @@ interface TelegramMessage {
 const userStates = new Map<
   number,
   {
-    step: 'awaiting_title' | 'awaiting_content' | 'awaiting_image' | 'awaiting_excerpt';
+    step:
+      | "awaiting_title"
+      | "awaiting_content"
+      | "awaiting_image"
+      | "awaiting_excerpt";
     data: Partial<{
       title: string;
       content: string;
@@ -55,7 +59,10 @@ export async function POST(request: NextRequest) {
 
     // Проверка авторизации
     if (!isAuthorized(username)) {
-      await sendMessage(message.chat.id, '❌ У вас нет доступа к управлению статьями.');
+      await sendMessage(
+        message.chat.id,
+        "❌ У вас нет доступа к управлению статьями."
+      );
       return NextResponse.json({ ok: true });
     }
 
@@ -64,7 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Команды
-    if (text.startsWith('/')) {
+    if (text.startsWith("/")) {
       await handleCommand(text, message);
       return NextResponse.json({ ok: true });
     }
@@ -77,15 +84,16 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    console.error('Telegram webhook error:', error);
+    console.error("Telegram webhook error:", error);
     return NextResponse.json({ ok: true }); // Всегда возвращаем ok для Telegram
   }
 }
 
 function isAuthorized(username?: string): boolean {
   if (!username) return false;
-  
-  const adminUsernames = process.env.TELEGRAM_ADMIN_USERNAMES?.split(',').map((u) => u.trim()) || [];
+
+  const adminUsernames =
+    process.env.TELEGRAM_ADMIN_USERNAMES?.split(",").map(u => u.trim()) || [];
   return adminUsernames.includes(username);
 }
 
@@ -93,121 +101,128 @@ async function handleCommand(command: string, message: TelegramMessage) {
   const chatId = message.chat.id;
   const userId = message.from?.id;
 
-  switch (command.split(' ')[0]) {
-    case '/start':
+  switch (command.split(" ")[0]) {
+    case "/start":
       await sendMessage(
         chatId,
-        '👋 Привет! Я бот для управления сайтом СТИЛКРАФТ.\n\n' +
-          'Доступные команды:\n' +
-          '/new_article - Создать новую статью\n' +
-          '/list_articles - Список статей\n' +
-          '/help - Справка'
+        "👋 Привет! Я бот для управления сайтом СТИЛКРАФТ.\n\n" +
+          "Доступные команды:\n" +
+          "/new_article - Создать новую статью\n" +
+          "/list_articles - Список статей\n" +
+          "/help - Справка"
       );
       break;
 
-    case '/new_article':
+    case "/new_article":
       if (userId) {
         userStates.set(userId, {
-          step: 'awaiting_title',
+          step: "awaiting_title",
           data: {},
         });
         await sendMessage(
           chatId,
-          '📝 <b>Создание новой статьи</b>\n\n' +
-            'Шаг 1/4: Введите заголовок статьи'
+          "📝 <b>Создание новой статьи</b>\n\n" +
+            "Шаг 1/4: Введите заголовок статьи"
         );
       }
       break;
 
-    case '/list_articles':
+    case "/list_articles":
       const articles = await prisma.article.findMany({
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
         take: 10,
       });
 
       if (articles.length === 0) {
-        await sendMessage(chatId, 'Пока нет опубликованных статей.');
+        await sendMessage(chatId, "Пока нет опубликованных статей.");
       } else {
         const list = articles
           .map(
             (a, i) =>
-              `${i + 1}. ${a.published ? '✅' : '❌'} <b>${a.title}</b>\n   slug: ${a.slug}`
+              `${i + 1}. ${a.published ? "✅" : "❌"} <b>${a.title}</b>\n   slug: ${a.slug}`
           )
-          .join('\n\n');
+          .join("\n\n");
         await sendMessage(chatId, `<b>Последние статьи:</b>\n\n${list}`);
       }
       break;
 
-    case '/cancel':
+    case "/cancel":
       if (userId && userStates.has(userId)) {
         userStates.delete(userId);
-        await sendMessage(chatId, '❌ Создание статьи отменено.');
+        await sendMessage(chatId, "❌ Создание статьи отменено.");
       }
       break;
 
-    case '/help':
+    case "/help":
       await sendMessage(
         chatId,
-        '<b>📖 Справка по боту</b>\n\n' +
-          '<b>/new_article</b> - Создать новую статью (пошаговый процесс)\n' +
-          '<b>/list_articles</b> - Показать список статей\n' +
-          '<b>/cancel</b> - Отменить текущее действие\n\n' +
-          '<b>Формат статей:</b>\n' +
-          'Статьи поддерживают Markdown формат:\n' +
-          '- Заголовки: # H1, ## H2, ### H3\n' +
-          '- Списки: - пункт или 1. пункт\n' +
-          '- Жирный: **текст**\n' +
-          '- Курсив: *текст*\n' +
-          '- Ссылки: [текст](url)'
+        "<b>📖 Справка по боту</b>\n\n" +
+          "<b>/new_article</b> - Создать новую статью (пошаговый процесс)\n" +
+          "<b>/list_articles</b> - Показать список статей\n" +
+          "<b>/cancel</b> - Отменить текущее действие\n\n" +
+          "<b>Формат статей:</b>\n" +
+          "Статьи поддерживают Markdown формат:\n" +
+          "- Заголовки: # H1, ## H2, ### H3\n" +
+          "- Списки: - пункт или 1. пункт\n" +
+          "- Жирный: **текст**\n" +
+          "- Курсив: *текст*\n" +
+          "- Ссылки: [текст](url)"
       );
       break;
 
     default:
-      await sendMessage(chatId, 'Неизвестная команда. Используйте /help для справки.');
+      await sendMessage(
+        chatId,
+        "Неизвестная команда. Используйте /help для справки."
+      );
   }
 }
 
-async function handleArticleCreation(userId: number, text: string, message: TelegramMessage) {
+async function handleArticleCreation(
+  userId: number,
+  text: string,
+  message: TelegramMessage
+) {
   const state = userStates.get(userId);
   if (!state) return;
 
   const chatId = message.chat.id;
 
   switch (state.step) {
-    case 'awaiting_title':
+    case "awaiting_title":
       state.data.title = text;
-      state.step = 'awaiting_content';
+      state.step = "awaiting_content";
       await sendMessage(
         chatId,
-        '✅ Заголовок сохранен!\n\n' +
-          'Шаг 2/4: Введите содержание статьи (в формате Markdown)'
+        "✅ Заголовок сохранен!\n\n" +
+          "Шаг 2/4: Введите содержание статьи (в формате Markdown)"
       );
       break;
 
-    case 'awaiting_content':
+    case "awaiting_content":
       state.data.content = text;
-      state.step = 'awaiting_excerpt';
+      state.step = "awaiting_excerpt";
       await sendMessage(
         chatId,
-        '✅ Содержание сохранено!\n\n' +
+        "✅ Содержание сохранено!\n\n" +
           'Шаг 3/4: Введите краткое описание статьи (excerpt) или отправьте "skip" для пропуска'
       );
       break;
 
-    case 'awaiting_excerpt':
-      if (text.toLowerCase() !== 'skip') {
+    case "awaiting_excerpt":
+      if (text.toLowerCase() !== "skip") {
         state.data.excerpt = text;
       }
-      state.step = 'awaiting_image';
+      state.step = "awaiting_image";
       await sendMessage(
         chatId,
-        '✅ Описание сохранено!\n\n' +
+        "✅ Описание сохранено!\n\n" +
           'Шаг 4/4: Отправьте изображение для обложки или введите URL изображения, или "skip" для пропуска'
       );
       break;
 
-    case 'awaiting_image':
-      if (text.toLowerCase() !== 'skip') {
+    case "awaiting_image":
+      if (text.toLowerCase() !== "skip") {
         // URL изображения
         state.data.coverImage = text;
       }
@@ -230,7 +245,10 @@ async function createArticle(
 ) {
   try {
     if (!data.title || !data.content) {
-      await sendMessage(chatId, '❌ Ошибка: не хватает данных для создания статьи.');
+      await sendMessage(
+        chatId,
+        "❌ Ошибка: не хватает данных для создания статьи."
+      );
       return;
     }
 
@@ -254,7 +272,7 @@ async function createArticle(
         slug,
         content: data.content,
         excerpt: data.excerpt,
-        coverImage: data.coverImage || '/example.jpg.webp',
+        coverImage: data.coverImage || "/example.jpg.webp",
         published: true,
         publishedAt: new Date(),
         authorUsername,
@@ -263,7 +281,7 @@ async function createArticle(
       },
     });
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
     const articleUrl = `${siteUrl}/articles/${article.slug}`;
 
     await sendMessage(
@@ -275,26 +293,58 @@ async function createArticle(
         `Статья опубликована и доступна на сайте.`
     );
   } catch (error) {
-    console.error('Create article error:', error);
-    await sendMessage(chatId, '❌ Ошибка при создании статьи. Попробуйте позже.');
+    console.error("Create article error:", error);
+    await sendMessage(
+      chatId,
+      "❌ Ошибка при создании статьи. Попробуйте позже."
+    );
   }
 }
 
 function generateSlug(title: string): string {
   const translitMap: Record<string, string> = {
-    а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh',
-    з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o',
-    п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'h', ц: 'ts',
-    ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya',
+    а: "a",
+    б: "b",
+    в: "v",
+    г: "g",
+    д: "d",
+    е: "e",
+    ё: "e",
+    ж: "zh",
+    з: "z",
+    и: "i",
+    й: "y",
+    к: "k",
+    л: "l",
+    м: "m",
+    н: "n",
+    о: "o",
+    п: "p",
+    р: "r",
+    с: "s",
+    т: "t",
+    у: "u",
+    ф: "f",
+    х: "h",
+    ц: "ts",
+    ч: "ch",
+    ш: "sh",
+    щ: "sch",
+    ъ: "",
+    ы: "y",
+    ь: "",
+    э: "e",
+    ю: "yu",
+    я: "ya",
   };
 
   return title
     .toLowerCase()
-    .split('')
-    .map((char) => translitMap[char] || char)
-    .join('')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
+    .split("")
+    .map(char => translitMap[char] || char)
+    .join("")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
     .substring(0, 100);
 }
 
@@ -305,13 +355,12 @@ async function sendMessage(chatId: number, text: string) {
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
   await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: chatId,
       text,
-      parse_mode: 'HTML',
+      parse_mode: "HTML",
     }),
   });
 }
-

@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { companyInfo } from '@/lib/data/company';
-import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from "react";
+import { companyInfo } from "@/lib/data/company";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function Products() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slidesCount = 3; // Количество слайдов
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slidesCount);
+    setCurrentSlide(prev => (prev + 1) % slidesCount);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slidesCount) % slidesCount);
+    setCurrentSlide(prev => (prev - 1 + slidesCount) % slidesCount);
   };
 
   return (
@@ -56,14 +56,14 @@ export function Products() {
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
-              
+
               <div className="flex gap-2">
                 {[...Array(slidesCount)].map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
                     className={`w-3 h-3 rounded-full transition-all ${
-                      currentSlide === index ? 'bg-primary w-8' : 'bg-gray-300'
+                      currentSlide === index ? "bg-primary w-8" : "bg-gray-300"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -84,4 +84,3 @@ export function Products() {
     </section>
   );
 }
-

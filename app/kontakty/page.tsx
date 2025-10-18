@@ -1,8 +1,8 @@
-import {Metadata} from "next";
+import { Metadata } from "next";
 import Link from "next/link";
-import {ContactForm} from "@/components/ContactForm";
-import {companyInfo} from "@/lib/data/company";
-import {Mail, Phone, MapPin, Clock} from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
+import { companyInfo } from "@/lib/data/company";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Контакты",
@@ -28,13 +28,17 @@ export default function ContactsPage() {
       {/* Header */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">Контакты</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-12">
+            Контакты
+          </h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Info */}
             <div className="space-y-6">
               <div className="bg-gray-50 p-6 rounded-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Наши контакты</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  Наши контакты
+                </h2>
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
@@ -42,7 +46,9 @@ export default function ContactsPage() {
                       <Clock className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">График работы</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        График работы
+                      </h3>
                       <p className="text-gray-600">{companyInfo.schedule}</p>
                     </div>
                   </div>
@@ -52,8 +58,13 @@ export default function ContactsPage() {
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                      <a href={`mailto:${companyInfo.email}`} className="text-primary hover:text-primary-dark transition-colors">
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        Email
+                      </h3>
+                      <a
+                        href={`mailto:${companyInfo.email}`}
+                        className="text-primary hover:text-primary-dark transition-colors"
+                      >
                         {companyInfo.email}
                       </a>
                     </div>
@@ -64,7 +75,9 @@ export default function ContactsPage() {
                       <Phone className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Телефоны</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        Телефоны
+                      </h3>
                       <div className="space-y-1">
                         {companyInfo.phones.map(phone => (
                           <div key={phone}>
@@ -85,14 +98,18 @@ export default function ContactsPage() {
                       <MapPin className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Адрес</h3>
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        Адрес
+                      </h3>
                       <p className="text-gray-600">{companyInfo.address}</p>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h3 className="font-semibold text-gray-900 mb-2">Реквизиты</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Реквизиты
+                  </h3>
                   <div className="text-sm text-gray-600 space-y-1">
                     <p>
                       <strong>ИНН:</strong> {companyInfo.inn}
@@ -111,8 +128,12 @@ export default function ContactsPage() {
             {/* Contact Form */}
             <div>
               <div className="bg-white p-6 md:p-8 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Напишите нам</h2>
-                <p className="text-gray-600 mb-6">Заполните форму, и мы свяжемся с вами в ближайшее время</p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Напишите нам
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  Заполните форму, и мы свяжемся с вами в ближайшее время
+                </p>
                 <ContactForm />
               </div>
             </div>
@@ -123,7 +144,9 @@ export default function ContactsPage() {
       {/* Map */}
       <section className="section-padding">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Как нас найти</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            Как нас найти
+          </h2>
           <div className="rounded-lg overflow-hidden shadow-xl">
             <iframe
               src="https://yandex.ru/map-widget/v1/?um=constructor%3Aeb58fe079098223d29348af18fe153613d9193357e59a02adfdf841fd5c4a48a&amp;source=constructor"

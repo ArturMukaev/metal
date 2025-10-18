@@ -1,28 +1,28 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import Image from 'next/image';
-import { prisma } from '@/lib/utils/prisma';
-import { Calendar } from 'lucide-react';
+import { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { prisma } from "@/lib/utils/prisma";
+import { Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Статьи о металлообработке',
+  title: "Статьи о металлообработке",
   description:
-    'Полезные статьи и материалы о металлообработке, технологиях производства и обработке металлических изделий.',
+    "Полезные статьи и материалы о металлообработке, технологиях производства и обработке металлических изделий.",
 };
 
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function ArticlesPage() {
   let articles: any[] = [];
-  
+
   try {
     articles = await prisma.article.findMany({
       where: { published: true },
-      orderBy: { publishedAt: 'desc' },
+      orderBy: { publishedAt: "desc" },
       take: 20,
     });
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error("Error fetching articles:", error);
     // Продолжаем с пустым массивом если БД недоступна
   }
 
@@ -44,10 +44,12 @@ export default async function ArticlesPage() {
       {/* Header */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Статьи</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Статьи
+          </h1>
           <p className="text-lg text-gray-600 max-w-3xl">
-            Познавательные материалы о металлообработке, технологиях производства и особенностях
-            работы с различными материалами.
+            Познавательные материалы о металлообработке, технологиях
+            производства и особенностях работы с различными материалами.
           </p>
         </div>
       </section>
@@ -58,7 +60,8 @@ export default async function ArticlesPage() {
           {articles.length === 0 ? (
             <div className="bg-white rounded-lg shadow-md p-8 md:p-12 text-center">
               <p className="text-gray-600 text-lg mb-4">
-                Пока нет опубликованных статей. Скоро здесь появятся интересные материалы!
+                Пока нет опубликованных статей. Скоро здесь появятся интересные
+                материалы!
               </p>
               <Link
                 href="/"
@@ -69,7 +72,7 @@ export default async function ArticlesPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {articles.map((article) => (
+              {articles.map(article => (
                 <Link
                   key={article.id}
                   href={`/articles/${article.slug}`}
@@ -90,15 +93,17 @@ export default async function ArticlesPage() {
                       {article.title}
                     </h3>
                     {article.excerpt && (
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">{article.excerpt}</p>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                        {article.excerpt}
+                      </p>
                     )}
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <Calendar className="w-4 h-4" />
                       <time dateTime={article.publishedAt?.toISOString()}>
-                        {article.publishedAt?.toLocaleDateString('ru-RU', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
+                        {article.publishedAt?.toLocaleDateString("ru-RU", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
                         })}
                       </time>
                     </div>
@@ -112,4 +117,3 @@ export default async function ArticlesPage() {
     </div>
   );
 }
-

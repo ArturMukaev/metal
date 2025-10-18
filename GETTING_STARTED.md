@@ -15,6 +15,7 @@ npm run dev
 Сайт будет доступен на `http://localhost:3000`
 
 ⚠️ **Примечание:** Без БД не будут работать:
+
 - Страница статей (будет пустой)
 - Форма обратной связи (не будет сохраняться в БД)
 - Telegram бот
@@ -26,6 +27,7 @@ npm run dev
 ### 1. Установка PostgreSQL
 
 #### macOS (Homebrew):
+
 ```bash
 brew install postgresql@16
 brew services start postgresql@16
@@ -33,6 +35,7 @@ createdb stilkraft
 ```
 
 #### Ubuntu/Debian:
+
 ```bash
 sudo apt update
 sudo apt install postgresql postgresql-contrib
@@ -41,6 +44,7 @@ sudo -u postgres createdb stilkraft
 ```
 
 #### Docker:
+
 ```bash
 docker run -d \
   --name stilkraft-postgres \
@@ -124,6 +128,7 @@ npm run telegram:webhook
 4. Следуйте инструкциям
 
 Или через Prisma Studio:
+
 ```bash
 npm run prisma:studio
 ```
@@ -193,6 +198,7 @@ WantedBy=multi-user.target
 ```
 
 Затем:
+
 ```bash
 sudo systemctl enable stilkraft
 sudo systemctl start stilkraft
@@ -248,7 +254,7 @@ brew services list  # macOS
 1. Убедитесь, что сайт доступен по HTTPS
 2. Проверьте TELEGRAM_WEBHOOK_URL
 3. Запустите: `npm run telegram:webhook`
-4. Проверьте webhook: 
+4. Проверьте webhook:
    ```bash
    curl https://api.telegram.org/bot<TOKEN>/getWebhookInfo
    ```
@@ -256,6 +262,7 @@ brew services list  # macOS
 ### Изображения не загружаются
 
 Убедитесь, что файлы в папке `public/`:
+
 - `logo.png` - логотип
 - `bg.jpg.webp` - фон главной страницы
 - `example.jpg.webp` - тестовое изображение
@@ -290,4 +297,3 @@ npm run telegram:webhook # Установить webhook
 ---
 
 **Удачи с запуском! 🚀**
-

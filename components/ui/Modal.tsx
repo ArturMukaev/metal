@@ -1,46 +1,53 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+import { X } from "lucide-react";
+import { cn } from "@/lib/utils/cn";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 
-export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  size = "md",
+}: ModalProps) {
   useEffect(() => {
     if (isOpen) {
       // Сохраняем ширину скроллбара
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
       // Блокируем скролл и компенсируем ширину скроллбара
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       // Восстанавливаем скролл и убираем компенсацию
-      document.body.style.overflow = 'unset';
-      document.body.style.paddingRight = '0px';
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
     }
-    
+
     return () => {
       // Очистка при размонтировании
-      document.body.style.overflow = 'unset';
-      document.body.style.paddingRight = '0px';
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
     };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   const sizeClasses = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
+    sm: "max-w-md",
+    md: "max-w-lg",
+    lg: "max-w-2xl",
   };
 
   const modalContent = (
@@ -54,13 +61,15 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
       {/* Modal */}
       <div
         className={cn(
-          'relative bg-white rounded-lg shadow-2xl w-full animate-scale-in max-h-[95vh] overflow-hidden',
+          "relative bg-white rounded-lg shadow-2xl w-full animate-scale-in max-h-[95vh] overflow-hidden",
           sizeClasses[size]
         )}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-900">{title}</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900">
+            {title}
+          </h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -71,7 +80,9 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
         </div>
 
         {/* Content */}
-        <div className="p-3 sm:p-4 md:p-6 max-h-[calc(95vh-120px)] overflow-y-auto">{children}</div>
+        <div className="p-3 sm:p-4 md:p-6 max-h-[calc(95vh-120px)] overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -79,4 +90,3 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
   // Рендерим модалку в портале, чтобы она была в корне документа
   return createPortal(modalContent, document.body);
 }
-

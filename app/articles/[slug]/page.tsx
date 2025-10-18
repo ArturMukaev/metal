@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { prisma } from '@/lib/utils/prisma';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { Calendar, User } from 'lucide-react';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { prisma } from "@/lib/utils/prisma";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Calendar, User } from "lucide-react";
 
 interface ArticlePageProps {
   params: {
@@ -13,13 +13,15 @@ interface ArticlePageProps {
   };
 }
 
-export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ArticlePageProps): Promise<Metadata> {
   const article = await prisma.article.findUnique({
     where: { slug: params.slug, published: true },
   });
 
   if (!article) {
-    return { title: 'Статья не найдена' };
+    return { title: "Статья не найдена" };
   }
 
   return {
@@ -29,7 +31,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       title: article.metaTitle || article.title,
       description: article.metaDescription || article.excerpt || undefined,
       images: article.coverImage ? [{ url: article.coverImage }] : undefined,
-      type: 'article',
+      type: "article",
       publishedTime: article.publishedAt?.toISOString(),
     },
   };
@@ -56,7 +58,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               Главная
             </Link>
             <span>/</span>
-            <Link href="/articles" className="hover:text-primary transition-colors">
+            <Link
+              href="/articles"
+              className="hover:text-primary transition-colors"
+            >
               Статьи
             </Link>
             <span>/</span>
@@ -74,16 +79,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 {article.title}
               </h1>
-              
+
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
                 {article.publishedAt && (
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <time dateTime={article.publishedAt.toISOString()}>
-                      {article.publishedAt.toLocaleDateString('ru-RU', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
+                      {article.publishedAt.toLocaleDateString("ru-RU", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </time>
                   </div>
@@ -111,7 +116,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             {/* Content */}
             <div className="markdown-content prose prose-lg max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {article.content}
+              </ReactMarkdown>
             </div>
 
             {/* Back to Articles */}
@@ -129,4 +136,3 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     </div>
   );
 }
-

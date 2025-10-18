@@ -1,11 +1,11 @@
-import { Hero } from '@/components/Hero';
-import { Advantages } from '@/components/Advantages';
-import { Products } from '@/components/Products';
-import { ServiceCard } from '@/components/ServiceCard';
-import { ContactForm } from '@/components/ContactForm';
-import servicesData from '@/lib/data/services.json';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Hero } from "@/components/Hero";
+import { Advantages } from "@/components/Advantages";
+import { Products } from "@/components/Products";
+import { ServiceCard } from "@/components/ServiceCard";
+import { ContactForm } from "@/components/ContactForm";
+import servicesData from "@/lib/data/services.json";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function HomePage() {
   // Показываем 4 основные услуги на главной
@@ -21,18 +21,21 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
               <strong>
-                Наше предприятие осуществляет полный комплекс мероприятий по разработке и
-                изготовлению нестандартного оборудования для различных отраслей промышленности:
-                металлургии, нефтяной, химической, газовой, строительства и др. Мы изготовим
-                металлические конструкции машиностроительного, строительного, технологического,
-                промышленного назначения. Также изготовим детали, узлы и агрегаты к машинам и
-                механизмам таким, как транспортные средства, промышленное оборудование, прессформы
-                и иные технические изделия.
+                Наше предприятие осуществляет полный комплекс мероприятий по
+                разработке и изготовлению нестандартного оборудования для
+                различных отраслей промышленности: металлургии, нефтяной,
+                химической, газовой, строительства и др. Мы изготовим
+                металлические конструкции машиностроительного, строительного,
+                технологического, промышленного назначения. Также изготовим
+                детали, узлы и агрегаты к машинам и механизмам таким, как
+                транспортные средства, промышленное оборудование, прессформы и
+                иные технические изделия.
               </strong>
             </p>
             <p className="text-lg text-gray-700 mt-4">
-              Изготовление деталей и сборку производим по чертежам или образцам, предоставленным
-              заказчиком из собственного материала или давальческого сырья.
+              Изготовление деталей и сборку производим по чертежам или образцам,
+              предоставленным заказчиком из собственного материала или
+              давальческого сырья.
             </p>
           </div>
         </div>
@@ -51,7 +54,7 @@ export default function HomePage() {
             Услуги
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {featuredServices.map((service) => (
+            {featuredServices.map(service => (
               <ServiceCard key={service.id} service={service} />
             ))}
           </div>
@@ -88,7 +91,8 @@ export default function HomePage() {
                 Напишите нам, мы ответим на все ваши вопросы
               </h2>
               <p className="text-gray-600 mb-6">
-                Заполните форму, и менеджер свяжется с вами для обсуждения деталей
+                Заполните форму, и менеджер свяжется с вами для обсуждения
+                деталей
               </p>
               <ContactForm />
             </div>
@@ -98,4 +102,3 @@ export default function HomePage() {
     </>
   );
 }
-

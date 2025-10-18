@@ -1,13 +1,13 @@
 "use client";
 
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {usePathname} from "next/navigation";
-import {Menu, X, Phone, Mail, Clock, Home} from "lucide-react";
-import {companyInfo} from "@/lib/data/company";
-import {cn} from "@/lib/utils/cn";
-import {CallbackButton} from "@/components/CallbackButton";
+import { usePathname } from "next/navigation";
+import { Menu, X, Phone, Mail, Clock, Home } from "lucide-react";
+import { companyInfo } from "@/lib/data/company";
+import { cn } from "@/lib/utils/cn";
+import { CallbackButton } from "@/components/CallbackButton";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,10 +46,10 @@ export function Header() {
   }, [isMenuOpen]);
 
   const navLinks = [
-    {href: "/services", label: "Услуги"},
-    {href: "/gallery", label: "Наши работы"},
-    {href: "/kontakty", label: "Контакты"},
-    {href: "/articles", label: "Статьи"},
+    { href: "/services", label: "Услуги" },
+    { href: "/gallery", label: "Наши работы" },
+    { href: "/kontakty", label: "Контакты" },
+    { href: "/articles", label: "Статьи" },
   ];
 
   return (
@@ -58,7 +58,9 @@ export function Header() {
       <div
         className={cn(
           "bg-dark-light sticky top-0 z-40",
-          isNavigating ? "" : "md:transition-all md:duration-300 md:ease-in-out",
+          isNavigating
+            ? ""
+            : "md:transition-all md:duration-300 md:ease-in-out",
           isScrolled ? "md:relative md:z-auto" : "md:sticky md:top-0 md:z-40"
         )}
       >
@@ -68,11 +70,20 @@ export function Header() {
             <div className="flex items-center gap-4">
               <Link href="/" className="flex items-center gap-3 group">
                 <div className="relative w-20 h-16 md:w-28 md:h-20 -my-1 md:-my-2">
-                  <Image src="/logo.png" alt={companyInfo.name} fill className="object-contain" />
+                  <Image
+                    src="/logo.png"
+                    alt={companyInfo.name}
+                    fill
+                    className="object-contain"
+                  />
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-white font-bold text-base md:text-lg group-hover:text-primary transition-colors">{companyInfo.name}</div>
-                  <div className="text-gray-400 text-sm">{companyInfo.tagline}</div>
+                  <div className="text-white font-bold text-base md:text-lg group-hover:text-primary transition-colors">
+                    {companyInfo.name}
+                  </div>
+                  <div className="text-gray-400 text-sm">
+                    {companyInfo.tagline}
+                  </div>
                 </div>
               </Link>
             </div>
@@ -81,7 +92,10 @@ export function Header() {
             <div className="flex items-center gap-2 md:gap-6">
               {/* Desktop: полная информация */}
               <div className="hidden lg:flex items-center gap-5 text-gray-300 text-base">
-                <a href={`mailto:${companyInfo.email}`} className="hover:text-primary transition-colors">
+                <a
+                  href={`mailto:${companyInfo.email}`}
+                  className="hover:text-primary transition-colors"
+                >
                   {companyInfo.email}
                 </a>
                 <div className="flex flex-col text-base">
@@ -101,8 +115,12 @@ export function Header() {
                 </div>
                 <div
                   className={cn(
-                    isNavigating ? "" : "md:transition-opacity md:duration-300 md:ease-in-out",
-                    isScrolled ? "md:opacity-0 md:pointer-events-none" : "md:opacity-100"
+                    isNavigating
+                      ? ""
+                      : "md:transition-opacity md:duration-300 md:ease-in-out",
+                    isScrolled
+                      ? "md:opacity-0 md:pointer-events-none"
+                      : "md:opacity-100"
                   )}
                 >
                   <CallbackButton>Обратный вызов</CallbackButton>
@@ -111,7 +129,10 @@ export function Header() {
 
               {/* Tablet: компактная информация */}
               <div className="hidden md:flex lg:hidden items-center gap-3 text-gray-300 text-sm">
-                <a href={`mailto:${companyInfo.email}`} className="hover:text-primary transition-colors">
+                <a
+                  href={`mailto:${companyInfo.email}`}
+                  className="hover:text-primary transition-colors"
+                >
                   {companyInfo.email}
                 </a>
                 <div className="flex flex-col gap-1">
@@ -127,8 +148,12 @@ export function Header() {
                 </div>
                 <div
                   className={cn(
-                    isNavigating ? "" : "md:transition-opacity md:duration-300 md:ease-in-out",
-                    isScrolled ? "md:opacity-0 md:pointer-events-none" : "md:opacity-100"
+                    isNavigating
+                      ? ""
+                      : "md:transition-opacity md:duration-300 md:ease-in-out",
+                    isScrolled
+                      ? "md:opacity-0 md:pointer-events-none"
+                      : "md:opacity-100"
                   )}
                 >
                   <CallbackButton>Обратный вызов</CallbackButton>
@@ -168,20 +193,27 @@ export function Header() {
       <header
         className={cn(
           "sticky top-0 z-50 hidden md:block",
-          isNavigating ? "" : "md:transition-all md:duration-500 md:ease-in-out",
+          isNavigating
+            ? ""
+            : "md:transition-all md:duration-500 md:ease-in-out",
           isScrolled ? "md:shadow-lg" : ""
         )}
-        style={{backgroundColor: "#565656"}}
+        style={{ backgroundColor: "#565656" }}
       >
         <div className="container-custom">
-          <div className={cn(
-            "flex items-center justify-between",
-            isNavigating ? "" : "md:transition-all md:duration-300",
-            isScrolled ? "py-5" : "py-4"
-          )}>
+          <div
+            className={cn(
+              "flex items-center justify-between",
+              isNavigating ? "" : "md:transition-all md:duration-300",
+              isScrolled ? "py-5" : "py-4"
+            )}
+          >
             {/* Navigation Links */}
             <div className="flex items-center gap-8">
-              <Link href="/" className="text-white hover:text-primary transition-colors">
+              <Link
+                href="/"
+                className="text-white hover:text-primary transition-colors"
+              >
                 <Home className="w-5 h-5" />
               </Link>
               {navLinks.map(link => (
@@ -196,7 +228,14 @@ export function Header() {
             </div>
 
             {/* Callback Button - появляется при скролле */}
-            <div className={cn(isNavigating ? "" : "md:transition-opacity md:duration-300 md:ease-in-out", isScrolled ? "opacity-100" : "opacity-0 pointer-events-none")}>
+            <div
+              className={cn(
+                isNavigating
+                  ? ""
+                  : "md:transition-opacity md:duration-300 md:ease-in-out",
+                isScrolled ? "opacity-100" : "opacity-0 pointer-events-none"
+              )}
+            >
               <CallbackButton>Обратный вызов</CallbackButton>
             </div>
           </div>
@@ -211,19 +250,32 @@ export function Header() {
         )}
       >
         {/* Full screen menu */}
-        <div className="w-screen h-screen overflow-y-auto" style={{backgroundColor: "#3A3A3A"}}>
+        <div
+          className="w-screen h-screen overflow-y-auto"
+          style={{ backgroundColor: "#3A3A3A" }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-dark-lighter">
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10">
-                <Image src="/logo.png" alt={companyInfo.name} fill className="object-contain" />
+                <Image
+                  src="/logo.png"
+                  alt={companyInfo.name}
+                  fill
+                  className="object-contain"
+                />
               </div>
               <div>
                 <div className="text-white font-bold">{companyInfo.name}</div>
-                <div className="text-gray-400 text-xs">{companyInfo.tagline}</div>
+                <div className="text-gray-400 text-xs">
+                  {companyInfo.tagline}
+                </div>
               </div>
             </div>
-            <button onClick={() => setIsMenuOpen(false)} className="p-2 hover:bg-dark-light rounded-full transition-colors">
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="p-2 hover:bg-dark-light rounded-full transition-colors"
+            >
               <X className="w-6 h-6 text-white" />
             </button>
           </div>
@@ -259,7 +311,10 @@ export function Header() {
           <div className="px-6 py-4 border-t border-dark-lighter">
             <h3 className="text-white font-bold text-lg mb-4">Контакты</h3>
             <div className="space-y-3">
-              <a href={`mailto:${companyInfo.email}`} className="flex items-center gap-3 text-white hover:text-primary transition-colors">
+              <a
+                href={`mailto:${companyInfo.email}`}
+                className="flex items-center gap-3 text-white hover:text-primary transition-colors"
+              >
                 <Mail className="w-5 h-5 text-primary" />
                 {companyInfo.email}
               </a>
@@ -268,10 +323,17 @@ export function Header() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   {companyInfo.phones.map((phone, index) => (
                     <div key={phone} className="flex items-center gap-2">
-                      <a href={`tel:${phone.replace(/\D/g, "")}`} className="text-primary hover:text-primary-light transition-colors">
+                      <a
+                        href={`tel:${phone.replace(/\D/g, "")}`}
+                        className="text-primary hover:text-primary-light transition-colors"
+                      >
                         {phone}
                       </a>
-                      {index < companyInfo.phones.length - 1 && <span className="text-gray-400 hidden sm:inline">|</span>}
+                      {index < companyInfo.phones.length - 1 && (
+                        <span className="text-gray-400 hidden sm:inline">
+                          |
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>

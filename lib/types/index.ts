@@ -41,7 +41,6 @@ export interface TelegramContactMessage {
   phone?: string;
   email?: string;
   message: string;
-  source: 'website' | 'callback';
+  source: "website" | "callback";
   timestamp: string;
 }
-
