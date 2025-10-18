@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: stilkraft-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: stilkraft
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-stilkraft_secure_password}
+      POSTGRES_DB: stilkraft
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stilkraft"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - stilkraft-network
+
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stilkraft-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://stilkraft:${DB_PASSWORD:-stilkraft_secure_password}@postgres:5432/stilkraft?schema=public
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TELEGRAM_WEBHOOK_URL=${TELEGRAM_WEBHOOK_URL}
+      - TELEGRAM_ADMIN_USERNAMES=${TELEGRAM_ADMIN_USERNAMES}
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+      - NEXT_PUBLIC_YANDEX_METRIKA_ID=${NEXT_PUBLIC_YANDEX_METRIKA_ID}
+      - NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    networks:
+      - stilkraft-network
+    command: sh -c "npx prisma migrate deploy && node server.js"
+
+  # Nginx (optional, for reverse proxy)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: stilkraft-nginx
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - app
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./ssl:/etc/nginx/ssl:ro
+  #   networks:
+  #     - stilkraft-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  stilkraft-network:
+    driver: bridge
+
