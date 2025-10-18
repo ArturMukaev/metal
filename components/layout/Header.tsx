@@ -3,6 +3,7 @@
 import {useState, useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {usePathname} from "next/navigation";
 import {Menu, X, Phone, Mail, Clock, Home} from "lucide-react";
 import {companyInfo} from "@/lib/data/company";
 import {cn} from "@/lib/utils/cn";
@@ -11,6 +12,8 @@ import {CallbackButton} from "@/components/CallbackButton";
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +23,16 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Detect navigation changes
+  useEffect(() => {
+    setIsNavigating(true);
+    const timer = setTimeout(() => {
+      setIsNavigating(false);
+    }, 100); // Short delay to allow page to settle
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -44,7 +57,8 @@ export function Header() {
       {/* Top Bar - закреплен на мобильных, скрывается при скролле на desktop */}
       <div
         className={cn(
-          "bg-dark-light sticky top-0 z-40 md:transition-all md:duration-300 md:ease-in-out",
+          "bg-dark-light sticky top-0 z-40",
+          isNavigating ? "" : "md:transition-all md:duration-300 md:ease-in-out",
           isScrolled ? "md:relative md:z-auto" : "md:sticky md:top-0 md:z-40"
         )}
       >
@@ -87,7 +101,7 @@ export function Header() {
                 </div>
                 <div
                   className={cn(
-                    "md:transition-opacity md:duration-300 md:ease-in-out",
+                    isNavigating ? "" : "md:transition-opacity md:duration-300 md:ease-in-out",
                     isScrolled ? "md:opacity-0 md:pointer-events-none" : "md:opacity-100"
                   )}
                 >
@@ -113,7 +127,7 @@ export function Header() {
                 </div>
                 <div
                   className={cn(
-                    "md:transition-opacity md:duration-300 md:ease-in-out",
+                    isNavigating ? "" : "md:transition-opacity md:duration-300 md:ease-in-out",
                     isScrolled ? "md:opacity-0 md:pointer-events-none" : "md:opacity-100"
                   )}
                 >
@@ -152,11 +166,19 @@ export function Header() {
 
       {/* Desktop Navigation Bar - закреплена при скролле */}
       <header
-        className={cn("sticky top-0 z-50 hidden md:block md:transition-all md:duration-500 md:ease-in-out", isScrolled ? "md:shadow-lg" : "")}
+        className={cn(
+          "sticky top-0 z-50 hidden md:block",
+          isNavigating ? "" : "md:transition-all md:duration-500 md:ease-in-out",
+          isScrolled ? "md:shadow-lg" : ""
+        )}
         style={{backgroundColor: "#565656"}}
       >
         <div className="container-custom">
-          <div className={cn("flex items-center justify-between md:transition-all md:duration-300", isScrolled ? "py-5" : "py-4")}>
+          <div className={cn(
+            "flex items-center justify-between",
+            isNavigating ? "" : "md:transition-all md:duration-300",
+            isScrolled ? "py-5" : "py-4"
+          )}>
             {/* Navigation Links */}
             <div className="flex items-center gap-8">
               <Link href="/" className="text-white hover:text-primary transition-colors">
@@ -174,7 +196,7 @@ export function Header() {
             </div>
 
             {/* Callback Button - появляется при скролле */}
-            <div className={cn("md:transition-opacity md:duration-300 md:ease-in-out", isScrolled ? "opacity-100" : "opacity-0 pointer-events-none")}>
+            <div className={cn(isNavigating ? "" : "md:transition-opacity md:duration-300 md:ease-in-out", isScrolled ? "opacity-100" : "opacity-0 pointer-events-none")}>
               <CallbackButton>Обратный вызов</CallbackButton>
             </div>
           </div>
