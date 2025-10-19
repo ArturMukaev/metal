@@ -7,7 +7,26 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function Products() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slidesCount = 3; // Количество слайдов
+  const slidesCount = 4; // Количество слайдов
+
+  const carouselImages = [
+    {
+      src: "/images/mainPage/carousel1.webp",
+      alt: "Продукция СТИЛКРАФТ - Пример 1",
+    },
+    {
+      src: "/images/mainPage/carousel2.webp",
+      alt: "Продукция СТИЛКРАФТ - Пример 2",
+    },
+    {
+      src: "/images/mainPage/carousel3.webp",
+      alt: "Продукция СТИЛКРАФТ - Пример 3",
+    },
+    {
+      src: "/images/mainPage/carousel4.webp",
+      alt: "Продукция СТИЛКРАФТ - Пример 4",
+    },
+  ];
 
   const nextSlide = () => {
     setCurrentSlide(prev => (prev + 1) % slidesCount);
@@ -20,9 +39,9 @@ export function Products() {
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Текст */}
-          <div>
+          <div className="flex flex-col items-start">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Виды выпускаемой продукции
             </h2>
@@ -40,8 +59,8 @@ export function Products() {
           <div className="relative">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/example.jpg.webp"
-                alt="Продукция СТИЛКРАФТ"
+                src={carouselImages[currentSlide].src}
+                alt={carouselImages[currentSlide].alt}
                 fill
                 className="object-cover"
               />
@@ -62,9 +81,7 @@ export function Products() {
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      currentSlide === index ? "bg-primary w-8" : "bg-gray-300"
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? "bg-primary w-8" : "bg-gray-300"}`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}

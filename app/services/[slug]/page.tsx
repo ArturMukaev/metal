@@ -1,11 +1,10 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { ServiceCard } from "@/components/ServiceCard";
 import servicesData from "@/lib/data/services.json";
-import type { Service } from "@/lib/types";
 
 interface ServicePageProps {
   params: {
@@ -48,9 +47,25 @@ export default function ServicePage({ params }: ServicePageProps) {
     notFound();
   }
 
-  // Другие услуги для рекомендаций
+  // If this is a sub-service, redirect to the nested route
+  if (!service.isMainService && service.parentService) {
+    const parentService = servicesData.find(
+      s => s.id === service.parentService
+    );
+    if (parentService) {
+      redirect(`/services/${parentService.slug}/${service.slug}`);
+    }
+  }
+
+  // Получаем подуслуги для главной услуги
+  const subServices =
+    service.isMainService && service.subServices
+      ? servicesData.filter(s => service.subServices?.includes(s.id))
+      : [];
+
+  // Другие услуги для рекомендаций (только главные услуги)
   const otherServices = servicesData
-    .filter(s => s.id !== service.id)
+    .filter(s => s.id !== service.id && s.isMainService)
     .slice(0, 4);
 
   return (
@@ -98,6 +113,22 @@ export default function ServicePage({ params }: ServicePageProps) {
           </a>
         </div>
       </section>
+
+      {/* Sub-services Section */}
+      {subServices.length > 0 && (
+        <section className="section-padding bg-gray-50">
+          <div className="container-custom">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
+              Виды работ
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {subServices.map(subService => (
+                <ServiceCard key={subService.id} service={subService} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Content */}
       <section className="section-padding bg-white">

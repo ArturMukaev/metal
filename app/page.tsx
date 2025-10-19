@@ -74,10 +74,10 @@ export default function HomePage() {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Изображение */}
-            <div className="order-2 lg:order-1">
+            <div className="order-2 lg:order-1 hidden lg:block">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/example.jpg.webp"
+                  src="/images/services/tokarnaya-obrabotka-metalla.webp"
                   alt="Свяжитесь с нами"
                   fill
                   className="object-cover"

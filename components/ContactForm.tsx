@@ -1,16 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@/lib/utils/zodResolver";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
+import { PhoneInput } from "./ui/PhoneInput";
+import { EmailInput } from "./ui/EmailInput";
+import { StatusPopup } from "./ui/StatusPopup";
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
-  phone: z.string().optional(),
+  name: z.string().optional(),
+  phone: z
+    .string({ required_error: "Введите номер телефона" })
+    .min(1, "Введите номер телефона")
+    .refine(value => {
+      const digits = value.replace(/\D/g, "");
+      return digits.length === 11 && digits.startsWith("7");
+    }, "Введите корректный номер телефона"),
   email: z.string().email("Некорректный email").optional().or(z.literal("")),
-  message: z.string().min(10, "Сообщение должно содержать минимум 10 символов"),
+  message: z.string().optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -20,15 +29,22 @@ export function ContactForm() {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
+  const [showPopup, setShowPopup] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
+    clearErrors,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
+
+  const phoneValue = watch("phone") || "";
+  const emailValue = watch("email") || "";
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -43,14 +59,28 @@ export function ContactForm() {
 
       if (response.ok) {
         setSubmitStatus("success");
+        setShowPopup(true);
         reset();
-        setTimeout(() => setSubmitStatus("idle"), 5000);
+        setTimeout(() => {
+          setShowPopup(false);
+          setSubmitStatus("idle");
+        }, 5000);
       } else {
         setSubmitStatus("error");
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+          setSubmitStatus("idle");
+        }, 5000);
       }
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmitStatus("error");
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        setSubmitStatus("idle");
+      }, 5000);
     } finally {
       setIsSubmitting(false);
     }
@@ -61,92 +91,90 @@ export function ContactForm() {
       <div>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2"
         >
-          Название <span className="text-red-500">*</span>
+          Название
+          {errors.name && (
+            <div className="relative group">
+              <AlertCircle className="w-4 h-4 text-red-500" />
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                {errors.name.message}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+              </div>
+            </div>
+          )}
         </label>
         <input
           {...register("name")}
           type="text"
           id="name"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
+            errors.name
+              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+              : "border-gray-300"
+          }`}
           placeholder="Ваше имя или название компании"
         />
-        {errors.name && (
-          <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-        )}
       </div>
 
-      <div>
-        <label
-          htmlFor="phone"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Номер телефона
-        </label>
-        <input
-          {...register("phone")}
-          type="tel"
-          id="phone"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-          placeholder="+7 (xxx) xxx-xx-xx"
-        />
-        {errors.phone && (
-          <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
-        )}
-      </div>
+      <PhoneInput
+        register={register}
+        errors={errors}
+        setValue={setValue}
+        clearErrors={clearErrors}
+        phoneValue={phoneValue}
+        id="phone"
+        placeholder="+7 (xxx) xxx-xx-xx"
+        required={true}
+      />
 
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Email
-        </label>
-        <input
-          {...register("email")}
-          type="email"
-          id="email"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-          placeholder="your@email.com"
-        />
-        {errors.email && (
-          <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-        )}
-      </div>
+      <EmailInput
+        register={register}
+        errors={errors}
+        clearErrors={clearErrors}
+        emailValue={emailValue}
+        id="email"
+        placeholder="your@email.com"
+        required={false}
+      />
 
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2"
         >
-          Описание задачи <span className="text-red-500">*</span>
+          Описание задачи
+          {errors.message && (
+            <div className="relative group">
+              <AlertCircle className="w-4 h-4 text-red-500" />
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
+                {errors.message.message}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+              </div>
+            </div>
+          )}
         </label>
         <textarea
           {...register("message")}
           id="message"
           rows={5}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none"
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none ${
+            errors.message
+              ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+              : "border-gray-300"
+          }`}
           placeholder="Опишите вашу задачу подробнее..."
         />
-        {errors.message && (
-          <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
-        )}
       </div>
 
-      {submitStatus === "success" && (
-        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
-          ✓ Спасибо! Ваша заявка успешно отправлена. Мы свяжемся с вами в
-          ближайшее время.
-        </div>
-      )}
-
-      {submitStatus === "error" && (
-        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
-          ✗ Произошла ошибка при отправке. Пожалуйста, попробуйте позже или
-          позвоните нам.
-        </div>
-      )}
+      <StatusPopup
+        show={showPopup}
+        status={submitStatus}
+        onClose={() => {
+          setShowPopup(false);
+          setSubmitStatus("idle");
+        }}
+      />
 
       <button
         type="submit"

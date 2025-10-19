@@ -8,7 +8,7 @@ export function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/bg.jpg.webp"
+          src="/images/mainPage/bg.webp"
           alt="Металлообработка"
           fill
           className="object-cover"

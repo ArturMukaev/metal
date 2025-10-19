@@ -41,12 +41,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Страницы услуг
-  const servicePages = servicesData.map(service => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  const servicePages: MetadataRoute.Sitemap = [];
+
+  servicesData.forEach(service => {
+    if (service.isMainService) {
+      servicePages.push({
+        url: `${baseUrl}/services/${service.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+      });
+    } else if (service.parentService) {
+      const parentService = servicesData.find(
+        s => s.id === service.parentService
+      );
+      if (parentService) {
+        servicePages.push({
+          url: `${baseUrl}/services/${parentService.slug}/${service.slug}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+        });
+      }
+    }
+  });
 
   // Статьи из БД
   let articlePages: MetadataRoute.Sitemap = [];

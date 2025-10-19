@@ -8,6 +8,9 @@ export interface Service {
   image: string;
   metaTitle: string;
   metaDescription: string;
+  isMainService: boolean;
+  subServices?: string[];
+  parentService?: string;
 }
 
 // Article types

@@ -5,7 +5,7 @@ import servicesData from "@/lib/data/services.json";
 export const metadata: Metadata = {
   title: "Услуги металлообработки в Перми",
   description:
-    "Полный перечень услуг по металлообработке: токарные, фрезерные, зуборезные работы, изготовление деталей по чертежам.",
+    "Широкий спектр услуг обработки металла в Перми: изготовление изделий из металла, проектирование и изготовление оборудования. Высокое качество и гибкий подход от компании СТИЛКРАФТ.",
   openGraph: {
     title: "Услуги металлообработки в Перми | СТИЛКРАФТ",
     description:
@@ -50,9 +50,11 @@ export default function ServicesPage() {
       <section className="section-padding">
         <div className="container-custom">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-            {servicesData.map(service => (
-              <ServiceCard key={service.id} service={service} />
-            ))}
+            {servicesData
+              .filter(service => service.isMainService)
+              .map(service => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { companyInfo } from "@/lib/data/company";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import servicesData from "@/lib/data/services.json";
 
 export function Footer() {
@@ -15,19 +15,6 @@ export function Footer() {
           <div>
             <h3 className="text-white font-bold text-lg mb-4">Контакты</h3>
             <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <p>{companyInfo.address}</p>
-                  <p className="text-sm mt-1">
-                    ИНН {companyInfo.inn}
-                    <br />
-                    ОГРНИП {companyInfo.ogrn}
-                    <br />
-                    р/с {companyInfo.bankAccount}
-                  </p>
-                </div>
-              </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
                 <div className="flex flex-col gap-1">
@@ -51,7 +38,23 @@ export function Footer() {
                   {companyInfo.email}
                 </a>
               </div>
-              <p className="text-sm">{companyInfo.schedule}</p>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <p>{companyInfo.address}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-primary flex-shrink-0" />
+                <p>{companyInfo.schedule}</p>
+              </div>
+              <p className="text-sm mt-1">
+                ИНН {companyInfo.inn}
+                <br />
+                ОГРНИП {companyInfo.ogrn}
+                <br />
+                р/с {companyInfo.bankAccount}
+              </p>
             </div>
           </div>
 
@@ -63,7 +66,7 @@ export function Footer() {
                 <li key={service.id}>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="hover:text-primary transition-colors text-sm"
+                    className="hover:text-primary transition-colors"
                   >
                     {service.title}
                   </Link>
@@ -123,11 +126,16 @@ export function Footer() {
         <div className="container-custom py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
             <p>
-              © {currentYear} {companyInfo.name}. Все права защищены.
+              © {companyInfo.name} 2011-{currentYear}. Все права защищены.
             </p>
-            <p className="text-gray-400">
-              Создано с использованием современных технологий Next.js
-            </p>
+            <a
+              href="https://arturmukaev.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-primary transition-colors"
+            >
+              Разработка сайта
+            </a>
           </div>
         </div>
       </div>
