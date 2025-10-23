@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { companyInfo } from "@/lib/data/company";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import servicesData from "@/lib/data/services.json";
 
 export function Footer() {
@@ -36,6 +36,17 @@ export function Footer() {
                   className="hover:text-primary transition-colors"
                 >
                   {companyInfo.email}
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <MessageCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                <a
+                  href={companyInfo.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  Связаться через WhatsApp
                 </a>
               </div>
               <div className="flex items-start gap-3">

@@ -77,19 +77,6 @@ export function Analytics() {
           />
         </>
       )}
-
-      {/* Mock: Если переменные окружения не заданы, показываем предупреждение в dev режиме */}
-      {process.env.NODE_ENV === "development" &&
-        !yandexMetrikaId &&
-        !googleAnalyticsId && (
-          <Script
-            id="analytics-mock"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `console.log('%c⚠️ Analytics Mock Mode', 'color: orange; font-size: 14px; font-weight: bold;', '\\nДобавьте NEXT_PUBLIC_YANDEX_METRIKA_ID и NEXT_PUBLIC_GOOGLE_ANALYTICS_ID в .env файл');`,
-            }}
-          />
-        )}
     </>
   );
 }

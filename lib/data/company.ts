@@ -12,7 +12,7 @@ export const companyInfo = {
   bankAccount: "40802810700810005420",
 
   social: {
-    // Добавьте социальные сети при необходимости
+    whatsapp: "https://wa.me/79128836746",
   },
 
   advantages: [

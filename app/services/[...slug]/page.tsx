@@ -1,11 +1,10 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { ServiceCard } from "@/components/ServiceCard";
 import servicesData from "@/lib/data/services.json";
-import type { Service } from "@/lib/types";
 
 interface CatchAllServicePageProps {
   params: {
@@ -183,38 +182,47 @@ export default function CatchAllServicePage({
           <div className="container-custom">
             <div className="max-w-4xl mx-auto">
               <div className="prose prose-lg max-w-none">
-                <p className="text-xl text-gray-700 leading-relaxed">
-                  {service.description}
-                </p>
+                {service.content ? (
+                  <div
+                    className="custom-content"
+                    dangerouslySetInnerHTML={{ __html: service.content }}
+                  />
+                ) : (
+                  <>
+                    <p className="text-xl text-gray-700 leading-relaxed">
+                      {service.description}
+                    </p>
 
-                <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">
-                  О услуге {service.title}
-                </h2>
-                <p className="text-gray-700">
-                  Компания СТИЛКРАФТ предлагает профессиональные услуги по{" "}
-                  {service.title.toLowerCase()}. Мы используем современное
-                  оборудование и технологии, что позволяет нам гарантировать
-                  высокое качество выполнения работ и точное соблюдение всех
-                  технических требований.
-                </p>
+                    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">
+                      О услуге {service.title}
+                    </h2>
+                    <p className="text-gray-700">
+                      Компания СТИЛКРАФТ предлагает профессиональные услуги по{" "}
+                      {service.title.toLowerCase()}. Мы используем современное
+                      оборудование и технологии, что позволяет нам гарантировать
+                      высокое качество выполнения работ и точное соблюдение всех
+                      технических требований.
+                    </p>
 
-                <h3 className="text-2xl font-bold text-gray-900 mt-6 mb-3">
-                  Преимущества работы с нами
-                </h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Высокая точность изготовления деталей</li>
-                  <li>Современное оборудование с ЧПУ</li>
-                  <li>Опытные специалисты</li>
-                  <li>Строгий контроль качества</li>
-                  <li>Конкурентные цены</li>
-                  <li>Соблюдение сроков</li>
-                </ul>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-6 mb-3">
+                      Преимущества работы с нами
+                    </h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-700">
+                      <li>Высокая точность изготовления деталей</li>
+                      <li>Современное оборудование с ЧПУ</li>
+                      <li>Опытные специалисты</li>
+                      <li>Строгий контроль качества</li>
+                      <li>Конкурентные цены</li>
+                      <li>Соблюдение сроков</li>
+                    </ul>
 
-                <p className="text-gray-700 mt-6">
-                  Стоимость работ определяется индивидуально под каждый заказ.
-                  Для получения подробной информации и расчета стоимости
-                  свяжитесь с нашими специалистами.
-                </p>
+                    <p className="text-gray-700 mt-6">
+                      Стоимость работ определяется индивидуально под каждый
+                      заказ. Для получения подробной информации и расчета
+                      стоимости свяжитесь с нашими специалистами.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -248,10 +256,10 @@ export default function CatchAllServicePage({
         <section id="contact" className="section-padding bg-white">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div className="order-2 lg:order-1">
+              <div className="order-2 lg:order-1 hidden lg:block">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
                   <Image
-                    src="/example.jpg.webp"
+                    src="/images/example2.jpg"
                     alt="Свяжитесь с нами"
                     fill
                     className="object-cover"
@@ -365,38 +373,47 @@ export default function CatchAllServicePage({
           <div className="container-custom">
             <div className="max-w-4xl mx-auto">
               <div className="prose prose-lg max-w-none">
-                <p className="text-xl text-gray-700 leading-relaxed">
-                  {childService.description}
-                </p>
+                {childService.content ? (
+                  <div
+                    className="custom-content"
+                    dangerouslySetInnerHTML={{ __html: childService.content }}
+                  />
+                ) : (
+                  <>
+                    <p className="text-xl text-gray-700 leading-relaxed">
+                      {childService.description}
+                    </p>
 
-                <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">
-                  О услуге {childService.title}
-                </h2>
-                <p className="text-gray-700">
-                  Компания СТИЛКРАФТ предлагает профессиональные услуги по{" "}
-                  {childService.title.toLowerCase()}. Мы используем современное
-                  оборудование и технологии, что позволяет нам гарантировать
-                  высокое качество выполнения работ и точное соблюдение всех
-                  технических требований.
-                </p>
+                    <h2 className="text-3xl font-bold text-gray-900 mt-8 mb-4">
+                      О услуге {childService.title}
+                    </h2>
+                    <p className="text-gray-700">
+                      Компания СТИЛКРАФТ предлагает профессиональные услуги по{" "}
+                      {childService.title.toLowerCase()}. Мы используем
+                      современное оборудование и технологии, что позволяет нам
+                      гарантировать высокое качество выполнения работ и точное
+                      соблюдение всех технических требований.
+                    </p>
 
-                <h3 className="text-2xl font-bold text-gray-900 mt-6 mb-3">
-                  Преимущества работы с нами
-                </h3>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Высокая точность изготовления деталей</li>
-                  <li>Современное оборудование с ЧПУ</li>
-                  <li>Опытные специалисты</li>
-                  <li>Строгий контроль качества</li>
-                  <li>Конкурентные цены</li>
-                  <li>Соблюдение сроков</li>
-                </ul>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-6 mb-3">
+                      Преимущества работы с нами
+                    </h3>
+                    <ul className="list-disc list-inside space-y-2 text-gray-700">
+                      <li>Высокая точность изготовления деталей</li>
+                      <li>Современное оборудование с ЧПУ</li>
+                      <li>Опытные специалисты</li>
+                      <li>Строгий контроль качества</li>
+                      <li>Конкурентные цены</li>
+                      <li>Соблюдение сроков</li>
+                    </ul>
 
-                <p className="text-gray-700 mt-6">
-                  Стоимость работ определяется индивидуально под каждый заказ.
-                  Для получения подробной информации и расчета стоимости
-                  свяжитесь с нашими специалистами.
-                </p>
+                    <p className="text-gray-700 mt-6">
+                      Стоимость работ определяется индивидуально под каждый
+                      заказ. Для получения подробной информации и расчета
+                      стоимости свяжитесь с нашими специалистами.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -454,10 +471,10 @@ export default function CatchAllServicePage({
         <section id="contact" className="section-padding bg-gray-50">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              <div className="order-2 lg:order-1">
+              <div className="order-2 lg:order-1 hidden lg:block">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
                   <Image
-                    src="/example.jpg.webp"
+                    src="/images/example.webp"
                     alt="Свяжитесь с нами"
                     fill
                     className="object-cover"

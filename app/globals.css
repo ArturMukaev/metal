@@ -93,6 +93,64 @@
   .markdown-content pre code {
     @apply bg-transparent p-0;
   }
+
+  /* Custom content styling for service pages */
+  .custom-content {
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .custom-content h1 {
+    @apply text-4xl font-bold mt-0 mb-6 text-gray-900;
+  }
+
+  .custom-content h2 {
+    @apply text-3xl font-bold mt-6 mb-4 text-gray-900;
+  }
+
+  .custom-content h2:first-child {
+    @apply mt-0;
+  }
+
+  .custom-content h3 {
+    @apply text-2xl font-bold mt-6 mb-3 text-gray-900;
+  }
+
+  .custom-content h4 {
+    @apply text-xl font-semibold mt-5 mb-2 text-gray-900;
+  }
+
+  .custom-content p {
+    @apply mb-4 text-base leading-relaxed;
+  }
+
+  .custom-content ul,
+  .custom-content ol {
+    @apply mb-4 pl-6;
+  }
+
+  .custom-content ul {
+    @apply list-disc;
+  }
+
+  .custom-content ol {
+    @apply list-decimal;
+  }
+
+  .custom-content li {
+    @apply mb-2;
+  }
+
+  .custom-content a {
+    @apply text-primary hover:text-primary-dark underline transition-colors;
+  }
+
+  .custom-content strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .custom-content em {
+    @apply italic;
+  }
 }
 
 @layer utilities {

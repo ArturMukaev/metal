@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { companyInfo } from "@/lib/data/company";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Контакты",
@@ -70,7 +70,7 @@ export default function ContactsPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Phone className="w-6 h-6 text-primary" />
                     </div>
@@ -90,6 +90,25 @@ export default function ContactsPage() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        WhatsApp
+                      </h3>
+                      <a
+                        href={companyInfo.social.whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary-dark transition-colors font-semibold"
+                      >
+                        Связаться через WhatsApp
+                      </a>
                     </div>
                   </div>
 
@@ -127,7 +146,7 @@ export default function ContactsPage() {
 
             {/* Contact Form */}
             <div>
-              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md">
+              <div className="bg-gray-50 p-6 md:p-8 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   Напишите нам
                 </h2>
