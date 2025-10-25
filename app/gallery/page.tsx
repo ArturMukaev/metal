@@ -14,18 +14,47 @@ export const metadata: Metadata = {
 // Временные статические данные для галереи
 // В будущем будут загружаться из БД через Telegram бот
 const galleryImages = [
-  { id: 1, title: "Шестерни", image: "/example.jpg.webp" },
-  { id: 2, title: "Валы", image: "/example.jpg.webp" },
-  { id: 3, title: "Зубчатые колеса", image: "/example.jpg.webp" },
-  { id: 4, title: "Фрезерные работы", image: "/example.jpg.webp" },
-  { id: 5, title: "Токарные работы", image: "/example.jpg.webp" },
-  { id: 6, title: "Готовые изделия", image: "/example.jpg.webp" },
-  { id: 7, title: "Металлоконструкции", image: "/example.jpg.webp" },
-  { id: 8, title: "Детали по чертежам", image: "/example.jpg.webp" },
-  { id: 9, title: "Зуборезные работы", image: "/example.jpg.webp" },
-  { id: 10, title: "Нестандартное оборудование", image: "/example.jpg.webp" },
-  { id: 11, title: "Муфты", image: "/example.jpg.webp" },
-  { id: 12, title: "Венцы", image: "/example.jpg.webp" },
+  { id: 1, title: "Валы", image: "/images/examples/example1.jpg" },
+  { id: 2, title: "Буровые трубы", image: "/images/examples/example2.jpg" },
+  {
+    id: 3,
+    title: "Алюминиевая втулка",
+    image: "/images/examples/example3.jpg",
+  },
+  { id: 4, title: "Поворотный фланец", image: "/images/examples/example4.jpg" },
+  {
+    id: 5,
+    title: "Процесс вибродуговой наплавки",
+    image: "/images/examples/example5.jpg",
+  },
+  {
+    id: 6,
+    title: "Зуборезный станок с ЧПУ для изготовления конических шестерен",
+    image: "/images/examples/example6.jpg",
+  },
+  { id: 7, title: "Вращающаяся печь", image: "/images/examples/example7.jpg" },
+  {
+    id: 8,
+    title: "Трубная решётка теплообменника",
+    image: "/images/examples/example8.jpg",
+  },
+  {
+    id: 9,
+    title: "Сверло с коническим хвостовиком",
+    image: "/images/examples/example9.jpg",
+  },
+  { id: 10, title: "Концевая фреза", image: "/images/examples/example10.jpg" },
+  {
+    id: 11,
+    title: "Изделия из металла",
+    image: "/images/examples/example11.jpg",
+  },
+  {
+    id: 12,
+    title: "Бортовой редуктор",
+    image: "/images/examples/example12.jpg",
+  },
+  { id: 13, title: "Зубчатое колесо", image: "/images/examples/example13.jpg" },
 ];
 
 export default function GalleryPage() {
@@ -50,7 +79,7 @@ export default function GalleryPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Изготовление металлоизделий: примеры выполненных работ
           </h1>
-          <div className="max-w-4xl">
+          <div>
             <p className="text-lg text-gray-700 mb-4">
               Компания «СТИЛ КРАФТ» изготовит на заказ по чертежам заказчика
               металлические конструкции и изделия, нестандартное оборудование
@@ -58,14 +87,6 @@ export default function GalleryPage() {
               ознакомиться с примерами выполненных работ. Предлагаем вниманию
               клиентов фотографии, отображающие технологические процессы на
               предприятии и демонстрирующие готовые изделия.
-            </p>
-            <p className="text-lg text-gray-700">
-              За время работы ООО «СТИЛ КРАФТ» получило огромное количество
-              заказов. Мы постоянно расширяем клиентскую базу, улучшая оснащение
-              предприятия, расширяя перечень предоставляемых услуг и оптимизируя
-              цены на механообработку металла. Работаем с конструкционными и
-              нержавеющими сталями, цветным металлом. Нам доверяют, поскольку на
-              каждое металлоизделие мастера дают гарантию.
             </p>
           </div>
         </div>
@@ -101,7 +122,7 @@ export default function GalleryPage() {
 
       {/* Additional Info */}
       <section className="section-padding bg-white">
-        <div className="container-custom max-w-4xl">
+        <div className="container-custom">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
             Фрезерная обработка и другие услуги металлообработки в Перми
           </h2>
