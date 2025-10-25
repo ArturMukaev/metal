@@ -59,6 +59,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     // Добавьте коды верификации при необходимости
     // google: 'YOUR_GOOGLE_VERIFICATION_CODE',

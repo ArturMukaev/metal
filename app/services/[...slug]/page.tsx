@@ -54,6 +54,9 @@ export async function generateMetadata({
     return {
       title: service.metaTitle,
       description: service.metaDescription,
+      alternates: {
+        canonical: `/services/${slug[0]}`,
+      },
       openGraph: {
         title: service.metaTitle,
         description: service.metaDescription,
@@ -79,6 +82,9 @@ export async function generateMetadata({
     return {
       title: childService.metaTitle,
       description: childService.metaDescription,
+      alternates: {
+        canonical: `/services/${slug[0]}/${slug[1]}`,
+      },
       openGraph: {
         title: childService.metaTitle,
         description: childService.metaDescription,

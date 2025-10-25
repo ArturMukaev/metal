@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Статьи о металлообработке",
   description:
     "Полезные статьи и материалы о металлообработке, технологиях производства и обработке металлических изделий.",
+  alternates: {
+    canonical: "/articles",
+  },
 };
 
 export const revalidate = 3600; // Revalidate every hour

@@ -7,6 +7,9 @@ import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 export const metadata: Metadata = {
   title: "Контакты",
   description: `Контакты компании СТИЛКРАФТ. ${companyInfo.address}. Телефоны: ${companyInfo.phones.join(", ")}. Email: ${companyInfo.email}`,
+  alternates: {
+    canonical: "/kontakty",
+  },
 };
 
 export default function ContactsPage() {
