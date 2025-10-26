@@ -49,7 +49,7 @@ export function Header() {
     { href: "/services", label: "Услуги" },
     { href: "/gallery", label: "Наши работы" },
     { href: "/kontakty", label: "Контакты" },
-    { href: "/articles", label: "Статьи" },
+    { href: "/article", label: "Статьи" },
   ];
 
   return (

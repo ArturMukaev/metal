@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     "Пермь",
     "СТИЛКРАФТ",
   ],
+  icons: {
+    icon: "/metalworking.svg",
+  },
   authors: [{ name: "СТИЛКРАФТ" }],
   openGraph: {
     type: "website",
@@ -69,6 +72,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: "device-width",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -78,7 +86,7 @@ export default function RootLayout({
     <html lang="ru" className={inter.variable}>
       <body className={inter.className}>
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main>{children}</main>
         <Footer />
         <Analytics />
       </body>

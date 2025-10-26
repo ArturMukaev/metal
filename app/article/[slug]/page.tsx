@@ -2,10 +2,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/utils/prisma";
+import { getArticleBySlug } from "@/lib/utils/articles";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Calendar, User } from "lucide-react";
+import { cn } from "@/lib/utils/cn";
 
 interface ArticlePageProps {
   params: {
@@ -16,9 +17,7 @@ interface ArticlePageProps {
 export async function generateMetadata({
   params,
 }: ArticlePageProps): Promise<Metadata> {
-  const article = await prisma.article.findUnique({
-    where: { slug: params.slug, published: true },
-  });
+  const article = await getArticleBySlug(params.slug);
 
   if (!article) {
     return { title: "Статья не найдена" };
@@ -28,14 +27,17 @@ export async function generateMetadata({
     title: article.metaTitle || article.title,
     description: article.metaDescription || article.excerpt || undefined,
     alternates: {
-      canonical: `/articles/${params.slug}`,
+      canonical: `/article/${params.slug}`,
     },
     openGraph: {
       title: article.metaTitle || article.title,
       description: article.metaDescription || article.excerpt || undefined,
       images: article.coverImage ? [{ url: article.coverImage }] : undefined,
       type: "article",
-      publishedTime: article.publishedAt?.toISOString(),
+      publishedTime:
+        article.publishedAt instanceof Date
+          ? article.publishedAt.toISOString()
+          : article.publishedAt,
     },
   };
 }
@@ -43,9 +45,7 @@ export async function generateMetadata({
 export const revalidate = 3600;
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const article = await prisma.article.findUnique({
-    where: { slug: params.slug, published: true },
-  });
+  const article = await getArticleBySlug(params.slug);
 
   if (!article) {
     notFound();
@@ -62,7 +62,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </Link>
             <span>/</span>
             <Link
-              href="/articles"
+              href="/article"
               className="hover:text-primary transition-colors"
             >
               Статьи
@@ -87,8 +87,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 {article.publishedAt && (
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                    <time dateTime={article.publishedAt.toISOString()}>
-                      {article.publishedAt.toLocaleDateString("ru-RU", {
+                    <time
+                      dateTime={
+                        article.publishedAt instanceof Date
+                          ? article.publishedAt.toISOString()
+                          : new Date(article.publishedAt).toISOString()
+                      }
+                    >
+                      {(article.publishedAt instanceof Date
+                        ? article.publishedAt
+                        : new Date(article.publishedAt)
+                      ).toLocaleDateString("ru-RU", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -110,8 +119,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     src={article.coverImage}
                     alt={article.title}
                     fill
-                    className="object-cover"
+                    className={cn(
+                      article.containImage ? "object-contain" : "object-cover",
+                      "bg-white"
+                    )}
                     priority
+                    quality={15}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                 </div>
               )}
@@ -127,7 +141,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             {/* Back to Articles */}
             <div className="mt-12 pt-8 border-t border-gray-200">
               <Link
-                href="/articles"
+                href="/article"
                 className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-semibold transition-colors"
               >
                 ← Вернуться к статьям

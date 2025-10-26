@@ -272,7 +272,7 @@ async function createArticle(
         slug,
         content: data.content,
         excerpt: data.excerpt,
-        coverImage: data.coverImage || "/example.jpg.webp",
+        coverImage: data.coverImage || "/images/example.webp",
         published: true,
         publishedAt: new Date(),
         authorUsername,

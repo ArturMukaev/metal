@@ -156,7 +156,7 @@ metal/
 │   ├── api/                  # API Routes
 │   │   ├── contact/          # Обработка форм
 │   │   └── telegram/         # Telegram webhook
-│   ├── articles/             # Страницы статей
+│   ├── article/             # Страницы статей
 │   ├── services/             # Страницы услуг
 │   ├── gallery/              # Галерея работ
 │   ├── kontakty/             # Контакты

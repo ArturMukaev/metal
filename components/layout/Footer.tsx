@@ -105,7 +105,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/articles"
+                  href="/article"
                   className="hover:text-primary transition-colors"
                 >
                   Статьи
