@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 36000;
 
 const ARTICLES_PER_PAGE = 12;
 
@@ -24,8 +24,7 @@ interface ArticlesPageProps {
 export default async function ArticlesPage({
   searchParams,
 }: ArticlesPageProps) {
-  // Get articles from both database and prefilled JSON
-  // Database articles appear first, then prefilled articles
+  // Get articles from prefilled JSON
   const allArticles = await getAllArticles();
 
   // Parse page number from URL

@@ -93,10 +93,6 @@ temp/
 ehthumbs.db
 Thumbs.db
 
-# Database
-*.db
-*.sqlite
-
 # Generated files
 *.generated.*
 
@@ -104,6 +100,3 @@ Thumbs.db
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
-
-# Prisma
-prisma/migrations/

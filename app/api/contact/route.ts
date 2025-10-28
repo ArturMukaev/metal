@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/utils/prisma";
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
-  phone: z.string().optional(),
+  name: z.string().optional(),
+  phone: z
+    .string({ required_error: "Введите номер телефона" })
+    .min(1, "Введите номер телефона")
+    .refine(value => {
+      const digits = value.replace(/\D/g, "");
+      return digits.length === 11 && digits.startsWith("7");
+    }, "Введите корректный номер телефона"),
   email: z.string().email("Некорректный email").optional().or(z.literal("")),
-  message: z.string().min(10, "Сообщение должно содержать минимум 10 символов"),
+  message: z.string().optional(),
   source: z.enum(["website", "callback"]).default("website"),
 });
 
@@ -15,37 +20,13 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const data = contactSchema.parse(body);
 
-    // Сохраняем в БД
-    const contactRequest = await prisma.contactRequest.create({
-      data: {
-        name: data.name,
-        phone: data.phone,
-        email: data.email,
-        message: data.message,
-        source: data.source,
-        ipAddress:
-          request.headers.get("x-forwarded-for") || request.ip || "unknown",
-        userAgent: request.headers.get("user-agent") || "unknown",
-      },
-    });
-
     // Отправляем в Telegram
     try {
       const telegramMessage = formatTelegramMessage(data);
-      const sent = await sendToTelegram(telegramMessage);
-
-      if (sent) {
-        await prisma.contactRequest.update({
-          where: { id: contactRequest.id },
-          data: {
-            telegramSent: true,
-            telegramMessageId: sent.message_id?.toString(),
-          },
-        });
-      }
+      await sendToTelegram(telegramMessage);
     } catch (telegramError) {
       console.error("Telegram send error:", telegramError);
-      // Не возвращаем ошибку пользователю, заявка сохранена в БД
+      // Не возвращаем ошибку пользователю, заявка отправлена в Telegram
     }
 
     return NextResponse.json(
@@ -88,7 +69,7 @@ function formatTelegramMessage(data: z.infer<typeof contactSchema>) {
     parts.push(`📧 <b>Email:</b> ${data.email}`);
   }
 
-  parts.push("", `💬 <b>Сообщение:</b>`, data.message);
+  parts.push("", `💬 <b>Сообщение:</b>`, data.message ?? "");
   parts.push("", `🕐 ${new Date().toLocaleString("ru-RU")}`);
 
   return parts.join("\n");

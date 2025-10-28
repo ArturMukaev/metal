@@ -61,10 +61,7 @@ export function EmailInput({
       </label>
       <input
         {...register("email", {
-          onChange: e => {
-            register("email").onChange(e);
-            handleEmailChange(e);
-          },
+          onChange: handleEmailChange,
         })}
         type="email"
         id={id}

@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
-import { prisma } from "@/lib/utils/prisma";
 import servicesData from "@/lib/data/services.json";
+import articlesData from "@/lib/data/articles.json";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl =
@@ -66,23 +66,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   });
 
-  // Статьи из БД
-  let articlePages: MetadataRoute.Sitemap = [];
-  try {
-    const articles = await prisma.article.findMany({
-      where: { published: true },
-      select: { slug: true, updatedAt: true },
-    });
-
-    articlePages = articles.map(article => ({
+  // Статьи из статического файла
+  const articlePages: MetadataRoute.Sitemap = articlesData
+    .filter(article => article.published)
+    .map(article => ({
       url: `${baseUrl}/article/${article.slug}`,
-      lastModified: article.updatedAt,
+      lastModified: article.publishedAt
+        ? new Date(article.publishedAt)
+        : new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
-  } catch (error) {
-    console.error("Error fetching articles for sitemap:", error);
-  }
 
   return [...staticPages, ...servicePages, ...articlePages];
 }
