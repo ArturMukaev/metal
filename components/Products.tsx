@@ -1,32 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { companyInfo } from "@/lib/data/company";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+const carouselImages = [
+  {
+    src: "/images/mainPage/carousel1.webp",
+    alt: "Продукция СТИЛКРАФТ - Пример 1",
+  },
+  {
+    src: "/images/mainPage/carousel2.webp",
+    alt: "Продукция СТИЛКРАФТ - Пример 2",
+  },
+  {
+    src: "/images/mainPage/carousel3.webp",
+    alt: "Продукция СТИЛКРАФТ - Пример 3",
+  },
+  {
+    src: "/images/mainPage/carousel4.webp",
+    alt: "Продукция СТИЛКРАФТ - Пример 4",
+  },
+];
+
 export function Products() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slidesCount = 4; // Количество слайдов
-
-  const carouselImages = [
-    {
-      src: "/images/mainPage/carousel1.webp",
-      alt: "Продукция СТИЛКРАФТ - Пример 1",
-    },
-    {
-      src: "/images/mainPage/carousel2.webp",
-      alt: "Продукция СТИЛКРАФТ - Пример 2",
-    },
-    {
-      src: "/images/mainPage/carousel3.webp",
-      alt: "Продукция СТИЛКРАФТ - Пример 3",
-    },
-    {
-      src: "/images/mainPage/carousel4.webp",
-      alt: "Продукция СТИЛКРАФТ - Пример 4",
-    },
-  ];
 
   const nextSlide = () => {
     setCurrentSlide(prev => (prev + 1) % slidesCount);
@@ -35,6 +35,17 @@ export function Products() {
   const prevSlide = () => {
     setCurrentSlide(prev => (prev - 1 + slidesCount) % slidesCount);
   };
+
+  // Preload all carousel images when component mounts (page is open)
+  useEffect(() => {
+    carouselImages.forEach(img => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = img.src;
+      document.head.appendChild(link);
+    });
+  }, []);
 
   return (
     <section className="section-padding bg-white">
@@ -63,6 +74,7 @@ export function Products() {
                 alt={carouselImages[currentSlide].alt}
                 fill
                 className="object-cover"
+                priority={currentSlide === 0}
               />
             </div>
 

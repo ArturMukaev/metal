@@ -6,7 +6,6 @@ import { ContactForm } from "@/components/ContactForm";
 import servicesData from "@/lib/data/services.json";
 import Image from "next/image";
 import Link from "next/link";
-import Head from "next/head";
 
 export default function HomePage() {
   // Показываем 4 основные услуги на главной
@@ -15,12 +14,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Head>
-        <link rel="preload" href="/images/mainPage/carousel1.webp" as="image" />
-        <link rel="preload" href="/images/mainPage/carousel2.webp" as="image" />
-        <link rel="preload" href="/images/mainPage/carousel3.webp" as="image" />
-        <link rel="preload" href="/images/mainPage/carousel4.webp" as="image" />
-      </Head>
 
       {/* Основное описание */}
       <section className="section-padding bg-white">
