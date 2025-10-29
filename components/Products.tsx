@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { companyInfo } from "@/lib/data/company";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -36,17 +36,6 @@ export function Products() {
     setCurrentSlide(prev => (prev - 1 + slidesCount) % slidesCount);
   };
 
-  // Preload all carousel images when component mounts (page is open)
-  useEffect(() => {
-    carouselImages.forEach(img => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = img.src;
-      document.head.appendChild(link);
-    });
-  }, []);
-
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
@@ -69,13 +58,26 @@ export function Products() {
           {/* Карусель изображений */}
           <div className="relative">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
-              <Image
-                src={carouselImages[currentSlide].src}
-                alt={carouselImages[currentSlide].alt}
-                fill
-                className="object-cover"
-                priority={currentSlide === 0}
-              />
+              {/* Render all images, hide non-current ones so Next.js can preload them in optimized format */}
+              {carouselImages.map((img, index) => (
+                <Image
+                  key={index}
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className={`object-cover transition-opacity duration-300 ${
+                    currentSlide === index
+                      ? "opacity-100 z-10"
+                      : "opacity-0 z-0"
+                  }`}
+                  priority={index === 0}
+                  style={
+                    currentSlide !== index
+                      ? { pointerEvents: "none" }
+                      : undefined
+                  }
+                />
+              ))}
             </div>
 
             {/* Навигация карусели */}
