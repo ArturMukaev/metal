@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Link from "next/link";
 import { zodResolver } from "@/lib/utils/zodResolver";
 import { Modal } from "./ui/Modal";
 import { PhoneInput } from "./ui/PhoneInput";
@@ -161,7 +162,14 @@ export function CallbackModal({ isOpen, onClose }: CallbackModalProps) {
             </button>
 
             <p className="text-xs text-gray-500 text-center">
-              Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+              Нажимая кнопку, вы соглашаетесь с{" "}
+              <Link
+                href="/politika-konfidencialnosti"
+                className="text-primary hover:underline"
+                target="_blank"
+              >
+                политикой конфиденциальности
+              </Link>
             </p>
           </form>
         </div>

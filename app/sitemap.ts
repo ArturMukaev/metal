@@ -38,6 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "yearly" as const,
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/politika-konfidencialnosti`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
+    },
   ];
 
   // Страницы услуг

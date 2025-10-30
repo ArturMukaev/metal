@@ -251,7 +251,7 @@ export function Header() {
       >
         {/* Full screen menu */}
         <div
-          className="w-screen h-screen overflow-y-auto"
+          className="w-screen h-screen overflow-y-auto pb-32"
           style={{ backgroundColor: "#3A3A3A" }}
         >
           {/* Header */}

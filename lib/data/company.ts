@@ -10,6 +10,7 @@ export const companyInfo = {
   inn: "590601544905",
   ogrn: "309590403500010",
   bankAccount: "40802810700810005420",
+  url: "https://perm-metalloobrabotka.ru/",
 
   social: {
     whatsapp: "https://wa.me/79128836746",
