@@ -20,9 +20,10 @@ export function Hero() {
 
       {/* Content */}
       <div className="container-custom relative z-10">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in">
-            Металлообработка и изготовление металлических изделий
+        <div className="max-w-4xl">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 animate-fade-in">
+            Комплексная металлообработка, изготовление нестандартного
+            оборудования и деталей машин, узлов, агрегатов
           </h1>
 
           <div className="space-y-3 mb-8 animate-slide-up">
