@@ -22,19 +22,55 @@ const contactSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
-
-    // Extract form fields
-    const data = {
-      name: formData.get("name")?.toString() || undefined,
-      phone: formData.get("phone")?.toString() || "",
-      email: formData.get("email")?.toString() || undefined,
-      message: formData.get("message")?.toString() || undefined,
-      source:
-        (formData.get("source")?.toString() as "website" | "callback") ||
-        "website",
-      files: formData.getAll("files").filter(f => f instanceof File) as File[],
+    const contentType = request.headers.get("content-type") ?? "";
+    let data: {
+      name?: string;
+      phone: string;
+      email?: string;
+      message?: string;
+      source: "website" | "callback";
+      files?: File[];
     };
+
+    if (contentType.includes("application/json")) {
+      const json = await request.json();
+
+      data = {
+        name:
+          typeof json.name === "string" && json.name.length > 0
+            ? json.name
+            : undefined,
+        phone: typeof json.phone === "string" ? json.phone : "",
+        email:
+          typeof json.email === "string" && json.email.length > 0
+            ? json.email
+            : undefined,
+        message:
+          typeof json.message === "string" && json.message.length > 0
+            ? json.message
+            : undefined,
+        source:
+          json.source === "callback" || json.source === "website"
+            ? json.source
+            : "website",
+        files: [],
+      };
+    } else {
+      const formData = await request.formData();
+
+      data = {
+        name: formData.get("name")?.toString() || undefined,
+        phone: formData.get("phone")?.toString() || "",
+        email: formData.get("email")?.toString() || undefined,
+        message: formData.get("message")?.toString() || undefined,
+        source:
+          (formData.get("source")?.toString() as "website" | "callback") ||
+          "website",
+        files: formData
+          .getAll("files")
+          .filter(f => f instanceof File) as File[],
+      };
+    }
 
     // Validate with zod
     const validatedData = contactSchema.parse(data);
