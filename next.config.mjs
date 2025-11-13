@@ -13,6 +13,15 @@ const nextConfig = {
   output: "standalone",
   poweredByHeader: false,
   compress: true,
+  async redirects() {
+    return [
+      {
+        source: "/services/metalloobrabotka-v-permi",
+        destination: "/services/metalloobrabotka",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
