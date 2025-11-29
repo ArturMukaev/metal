@@ -14,47 +14,141 @@ export const metadata: Metadata = {
 // Временные статические данные для галереи
 // В будущем будут загружаться из БД через Telegram бот
 const galleryImages = [
-  { id: 1, title: "Валы", image: "/images/examples/example1.jpg" },
-  { id: 2, title: "Буровые трубы", image: "/images/examples/example2.jpg" },
+  {
+    id: 1,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example1.jpg",
+  },
+  {
+    id: 2,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example2.jpg",
+  },
   {
     id: 3,
-    title: "Алюминиевая втулка",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example3.jpg",
   },
-  { id: 4, title: "Поворотный фланец", image: "/images/examples/example4.jpg" },
+  {
+    id: 4,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example4.jpg",
+  },
   {
     id: 5,
-    title: "Процесс вибродуговой наплавки",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example5.jpg",
   },
   {
     id: 6,
-    title: "Зуборезный станок с ЧПУ для изготовления конических шестерен",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example6.jpg",
   },
-  { id: 7, title: "Вращающаяся печь", image: "/images/examples/example7.jpg" },
+  {
+    id: 7,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example7.jpg",
+  },
   {
     id: 8,
-    title: "Трубная решётка теплообменника",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example8.jpg",
   },
   {
     id: 9,
-    title: "Сверло с коническим хвостовиком",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example9.jpg",
   },
-  { id: 10, title: "Концевая фреза", image: "/images/examples/example10.jpg" },
+  {
+    id: 10,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example10.jpg",
+  },
   {
     id: 11,
-    title: "Изделия из металла",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example11.jpg",
   },
   {
     id: 12,
-    title: "Бортовой редуктор",
+    title: "Примеры выполненных работ",
     image: "/images/examples/example12.jpg",
   },
-  { id: 13, title: "Зубчатое колесо", image: "/images/examples/example13.jpg" },
+  {
+    id: 13,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example13.jpg",
+  },
+  {
+    id: 14,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example14.jpg",
+  },
+  {
+    id: 15,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example15.jpg",
+  },
+  {
+    id: 16,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example16.jpg",
+  },
+  {
+    id: 17,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example17.jpg",
+  },
+  {
+    id: 18,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example18.jpg",
+  },
+  {
+    id: 19,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example19.jpg",
+  },
+  {
+    id: 20,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example20.jpg",
+  },
+  {
+    id: 21,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example21.jpg",
+  },
+  {
+    id: 22,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example22.jpg",
+  },
+  {
+    id: 23,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example23.jpg",
+  },
+  {
+    id: 24,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example24.jpg",
+  },
+  {
+    id: 25,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example25.jpg",
+  },
+  {
+    id: 26,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example26.jpg",
+  },
+  {
+    id: 27,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example27.jpg",
+  },
 ];
 
 export default function GalleryPage() {
