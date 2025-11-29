@@ -1,32 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
 import Script from "next/script";
 
 export function Analytics() {
   const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
   const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
-  useEffect(() => {
-    // Инициализация Яндекс.Метрики после загрузки (если ID указан)
-    if (yandexMetrikaId && typeof window !== "undefined") {
-      setTimeout(() => {
-        // @ts-ignore
-        if (window.ym) {
-          console.log("Яндекс.Метрика initialized");
-        }
-      }, 2000);
-    }
-  }, [yandexMetrikaId]);
-
   return (
     <>
-      {/* Яндекс.Метрика - загружается с задержкой */}
+      {/* Яндекс.Метрика */}
       {yandexMetrikaId && (
         <>
           <Script
             id="yandex-metrika"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 (function (m, e, t, r, i, k, a) {
@@ -71,16 +58,16 @@ export function Analytics() {
         </>
       )}
 
-      {/* Google Analytics - загружается с задержкой */}
+      {/* Google Analytics */}
       {googleAnalyticsId && (
         <>
           <Script
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
           />
           <Script
             id="google-analytics"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];

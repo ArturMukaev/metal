@@ -65,10 +65,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  verification: {
-    // Добавьте коды верификации при необходимости
-    // google: 'YOUR_GOOGLE_VERIFICATION_CODE',
-    // yandex: 'YOUR_YANDEX_VERIFICATION_CODE',
+  other: {
+    "yandex-verification": "05e39d4c55c11bb4",
   },
 };
 
