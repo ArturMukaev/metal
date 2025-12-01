@@ -22,7 +22,8 @@ const nextConfig = {
       },
       {
         source: "/service/izgotovlenie-nestandartnogo-oborudovaniya-v-permi",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-nestandartnogo-oborudovaniya-v-permi",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-nestandartnogo-oborudovaniya-v-permi",
         permanent: true,
       },
       {
@@ -42,7 +43,8 @@ const nextConfig = {
       },
       {
         source: "/service/izgotovlenie-shesteren-v-permi",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-shesteren-v-permi",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-shesteren-v-permi",
         permanent: true,
       },
       {
@@ -52,12 +54,15 @@ const nextConfig = {
       },
       {
         source: "/service/izgotovlenie-zubchatykh-muft",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-zubchatykh-muft",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-zubchatykh-muft",
         permanent: true,
       },
       {
-        source: "/service/izgotovlenie-vencov-s-naruzhnym-zubchatym-zacepleniem",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-vencov-s-naruzhnym-zubchatym-zacepleniem",
+        source:
+          "/service/izgotovlenie-vencov-s-naruzhnym-zubchatym-zacepleniem",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-vencov-s-naruzhnym-zubchatym-zacepleniem",
         permanent: true,
       },
       {
@@ -67,12 +72,14 @@ const nextConfig = {
       },
       {
         source: "/service/izgotovlenie-detaley-po-chertezham-v-permi",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-detaley-po-chertezham-v-permi",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-detaley-po-chertezham-v-permi",
         permanent: true,
       },
       {
         source: "/service/izgotovlenie-zubchatykh-peredach",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-zubchatykh-peredach",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-zubchatykh-peredach",
         permanent: true,
       },
       {
@@ -111,18 +118,22 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/service/izgotovlenie-vencov-s-vnutrennim-zubchatym-zacepleniem",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-vencov-s-vnutrennim-zubchatym-zacepleniem",
+        source:
+          "/service/izgotovlenie-vencov-s-vnutrennim-zubchatym-zacepleniem",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-vencov-s-vnutrennim-zubchatym-zacepleniem",
         permanent: true,
       },
       {
         source: "/service/izgotovlenie-shesteryon",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-shesteren-v-permi",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-shesteren-v-permi",
         permanent: true,
       },
       {
         source: "/services/izgotovlenie-shesteryon",
-        destination: "/services/izgotovlenie-detaley/izgotovlenie-shesteren-v-permi",
+        destination:
+          "/services/izgotovlenie-detaley/izgotovlenie-shesteren-v-permi",
         permanent: true,
       },
       {
@@ -132,7 +143,8 @@ const nextConfig = {
       },
       {
         source: "/service/galvanicheskoe-pokrytie-metalla",
-        destination: "/services/metalloobrabotka/galvanicheskoe-pokrytie-metalla",
+        destination:
+          "/services/metalloobrabotka/galvanicheskoe-pokrytie-metalla",
         permanent: true,
       },
       {
