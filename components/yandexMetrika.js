@@ -10,25 +10,44 @@ export function YMetrika() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    ym(yandexMetrikaId, "hit", window.location.href);
-  }, [pathName, searchParams]);
+    if (typeof window !== "undefined" && window.ym && yandexMetrikaId) {
+      ym(yandexMetrikaId, "hit", window.location.href);
+    }
+  }, [pathName, searchParams, yandexMetrikaId]);
+
+  if (!yandexMetrikaId) {
+    return null;
+  }
 
   return (
-    <Script id="yandex-metrika">
-      {`
+    <>
+      <Script id="yandex-metrika" strategy="afterInteractive">
+        {`
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=${yandexMetrikaId}", "ym");
 
    ym(${yandexMetrikaId}, "init", {
-        defer: true,
+        ssr: true,
+        webvisor: true,
         clickmap: true,
         trackLinks: true,
         accurateTrackBounce: true,
+        ecommerce: "dataLayer"
    }); 
       `}
-    </Script>
+      </Script>
+      <noscript>
+        <div>
+          <img
+            src={`https://mc.yandex.ru/watch/${yandexMetrikaId}`}
+            style={{ position: "absolute", left: "-9999px" }}
+            alt=""
+          />
+        </div>
+      </noscript>
+    </>
   );
 }
