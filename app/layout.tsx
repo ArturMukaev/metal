@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { YMetrika } from "@/components/yandexMetrika";
+import YMetrika from "@/components/yandexMetrika";
 import { GoogleAnalytics } from "@/components/googleAnalytics";
 import { Suspense } from "react";
 
