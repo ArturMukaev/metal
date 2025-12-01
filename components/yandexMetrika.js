@@ -10,6 +10,7 @@ const YandexMetrika = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    console.log(YM_COUNTER_ID);
     if (pathname) {
       ym("hit", pathname);
     }
