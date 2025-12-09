@@ -265,7 +265,7 @@ export default function CatchAllServicePage({
               <div className="order-2 lg:order-1 hidden lg:block">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
                   <Image
-                    src="/images/example2.jpg"
+                    src="/images/examples/example25.jpg" //"/images/example2.jpg"
                     alt="Свяжитесь с нами"
                     fill
                     className="object-cover"
@@ -480,7 +480,7 @@ export default function CatchAllServicePage({
               <div className="order-2 lg:order-1 hidden lg:block">
                 <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
                   <Image
-                    src="/images/example.webp"
+                    src="/images/examples/example25.jpg" //"/images/example.webp"
                     alt="Свяжитесь с нами"
                     fill
                     className="object-cover"

@@ -7,19 +7,19 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const carouselImages = [
   {
-    src: "/images/mainPage/carousel1.webp",
+    src: "/images/examples/example15.jpg", //"/images/mainPage/carousel1.webp",
     alt: "Продукция СТИЛКРАФТ - Пример 1",
   },
   {
-    src: "/images/mainPage/carousel2.webp",
+    src: "/images/examples/example8.jpg", //"/images/mainPage/carousel2.webp",
     alt: "Продукция СТИЛКРАФТ - Пример 2",
   },
   {
-    src: "/images/mainPage/carousel3.webp",
+    src: "/images/examples/example12.jpg", //"/images/mainPage/carousel3.webp",
     alt: "Продукция СТИЛКРАФТ - Пример 3",
   },
   {
-    src: "/images/mainPage/carousel4.webp",
+    src: "/images/examples/example10.jpg", //"/images/mainPage/carousel4.webp",
     alt: "Продукция СТИЛКРАФТ - Пример 4",
   },
 ];
