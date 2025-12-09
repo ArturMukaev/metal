@@ -128,7 +128,7 @@ export default function ContactsPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-gray-200">
+                {/* <div className="mt-6 pt-6 border-t border-gray-200">
                   <h3 className="font-semibold text-gray-900 mb-2">
                     Реквизиты
                   </h3>
@@ -143,7 +143,7 @@ export default function ContactsPage() {
                       <strong>р/с:</strong> {companyInfo.bankAccount}
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 

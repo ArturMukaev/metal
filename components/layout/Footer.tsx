@@ -59,13 +59,13 @@ export function Footer() {
                 <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                 <p>{companyInfo.schedule}</p>
               </div>
-              <p className="text-sm mt-1">
+              {/* <p className="text-sm mt-1">
                 ИНН {companyInfo.inn}
                 <br />
                 ОГРНИП {companyInfo.ogrn}
                 <br />
                 р/с {companyInfo.bankAccount}
-              </p>
+              </p> */}
             </div>
           </div>
 

@@ -342,12 +342,12 @@ export function Header() {
                 <Clock className="w-5 h-5 text-primary" />
                 <span className="text-white">{companyInfo.schedule}</span>
               </div>
-              <div className="text-gray-400 text-sm space-y-1">
+              {/* <div className="text-gray-400 text-sm space-y-1">
                 <div>{companyInfo.address}</div>
                 <div>ИНН {companyInfo.inn}</div>
                 <div>ОГРНИП {companyInfo.ogrn}</div>
                 <div>р/с {companyInfo.bankAccount}</div>
-              </div>
+              </div> */}
             </div>
           </div>
 
