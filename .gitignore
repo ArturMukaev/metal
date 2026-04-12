@@ -39,5 +39,8 @@ next-env.d.ts
 # uploads
 /public/uploads
 
+# pencil.dev
+*.pen
+
 GETTING_STARTED.md
 DEPLOYMENT.md
