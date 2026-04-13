@@ -15,6 +15,26 @@ export const metadata: Metadata = {
 // В будущем будут загружаться из БД через Telegram бот
 const galleryImages = [
   {
+    id: 28,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example29.jpg",
+  },
+  {
+    id: 15,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example15.jpg",
+  },
+  {
+    id: 16,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example16.jpg",
+  },
+  {
+    id: 18,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example18.jpg",
+  },
+  {
     id: 1,
     title: "Примеры выполненных работ",
     image: "/images/examples/example1.jpg",
@@ -85,24 +105,9 @@ const galleryImages = [
     image: "/images/examples/example14.jpg",
   },
   {
-    id: 15,
-    title: "Примеры выполненных работ",
-    image: "/images/examples/example15.jpg",
-  },
-  {
-    id: 16,
-    title: "Примеры выполненных работ",
-    image: "/images/examples/example16.jpg",
-  },
-  {
     id: 17,
     title: "Примеры выполненных работ",
     image: "/images/examples/example17.jpg",
-  },
-  {
-    id: 18,
-    title: "Примеры выполненных работ",
-    image: "/images/examples/example18.jpg",
   },
   {
     id: 19,
@@ -148,6 +153,26 @@ const galleryImages = [
     id: 27,
     title: "Примеры выполненных работ",
     image: "/images/examples/example27.jpg",
+  },
+  {
+    id: 30,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example30.jpg",
+  },
+  {
+    id: 31,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example31.jpg",
+  },
+  {
+    id: 32,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example32.jpg",
+  },
+  {
+    id: 33,
+    title: "Примеры выполненных работ",
+    image: "/images/examples/example33.jpg",
   },
 ];
 
